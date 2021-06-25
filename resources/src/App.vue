@@ -2,38 +2,23 @@
 TheHeader
 .content
   TheSideMenu
-  .router-view
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+  RouterView.page
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
-import TheHeader from "./components/layout/TheHeader.vue";
-import TheSideMenu from "./components/layout/TheSideMenu.vue";
+import { defineComponent, onMounted } from 'vue';
+import TheHeader from './components/layout/TheHeader.vue';
+import TheSideMenu from './components/layout/TheSideMenu.vue';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     TheHeader,
     TheSideMenu,
   },
   setup: () => {
     async function loadSchema() {
-      const res = await fetch("./schemas/cloud-property-schema.json");
+      const res = await fetch('./schemas/cloud-property-schema.json');
       console.log(await res.json());
     }
 
@@ -60,7 +45,7 @@ p {
   font-size: 1.25em;
 }
 
-.router-view {
+.page {
   flex: 1;
   overflow: auto;
   padding: 1em;
