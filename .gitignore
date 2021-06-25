@@ -2,3 +2,4 @@
 frontend
 storage
 **/node_modules/**
+.env
