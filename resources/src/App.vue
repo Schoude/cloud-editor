@@ -1,5 +1,5 @@
 <template lang="pug">
-h1 This is App!
+p This is App!
 </template>
 
 <script lang="ts">
@@ -7,15 +7,16 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "App",
+  setup: () => {
+    console.log(import.meta.env.VITE_APP_TITLE);
+  },
 });
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  p {
+    font-size: 1.25em;
+  }
 }
 </style>
