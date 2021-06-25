@@ -1,16 +1,35 @@
 <template lang="pug">
 TheHeader
-p This is App!
+.content
+  TheSideMenu
+  .router-view
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 import TheHeader from "./components/layout/TheHeader.vue";
+import TheSideMenu from "./components/layout/TheSideMenu.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     TheHeader,
+    TheSideMenu,
   },
   setup: () => {
     async function loadSchema() {
@@ -24,9 +43,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@use './styles/_scrollbar' as *;
+
 #app {
-  p {
-    font-size: 1.25em;
-  }
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+}
+
+p {
+  font-size: 1.25em;
+}
+
+.router-view {
+  flex: 1;
+  overflow: auto;
+  padding: 1em;
+  @include scrollbar();
 }
 </style>
