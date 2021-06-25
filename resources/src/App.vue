@@ -3,10 +3,18 @@ p This is App!
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
   name: "App",
+  setup: () => {
+    async function loadSchema() {
+      const res = await fetch("./schemas/cloud-property-schema.json");
+      console.log(await res.json());
+    }
+
+    onMounted(async () => await loadSchema());
+  },
 });
 </script>
 

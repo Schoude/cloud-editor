@@ -1,0 +1,863 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://inreal-tech.com/schemas/cloud-property-schema.json",
+  "type": "object",
+  "title": "The Inreal Cloud Property Schema",
+  "definitions": {
+    "version": {
+      "$id": "#/definitions/version",
+      "title": "The Version Schema",
+      "description": "The version of the data format. This corresponds to the tag in the git repository.",
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "examples": ["0.2.0", "1.4.0"]
+    },
+    "globalConfig": {
+      "$id": "#/definitions/globalConfig",
+      "title": "The Global Config Schema",
+      "description": "Configuration options that are applicable to the whole project.",
+      "type": "object",
+      "required": ["guid", "styleTarget"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "styleTarget": {
+          "$ref": "#/definitions/styleTargetType",
+          "description": "The style target describes how styles should be applied for a project."
+        }
+      },
+      "additionalProperties": false
+    },
+    "modelId": {
+      "$id": "#/definitions/modelId",
+      "title": "The Model ID Schema",
+      "description": "The id of a model inside the database.",
+      "type": "string"
+    },
+    "guid": {
+      "$id": "#/definitions/guid",
+      "title": "The GUID Schema",
+      "description": "A globally unique identifier. See https://en.wikipedia.org/wiki/Universally_unique_identifier for more details.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "examples": [
+        "499da4da-fe9b-4fb1-9d52-cf69745a02d3",
+        "b152fda1-0ee0-4ece-8353-308e30ed39e2"
+      ]
+    },
+    "guidSingleRelation": {
+      "$id": "#/definitions/guidSingleRelation",
+      "title": "The GUID Single Relation Schema",
+      "description": "A 1:1 relation to another object with a guid. This guid is not unique, but rather a reference to another object.",
+      "$ref": "#/definitions/guid"
+    },
+    "guidMultiRelation": {
+      "$id": "#/definitions/guidMultiRelation",
+      "title": "The GUID Multi Relation Schema",
+      "description": "A 1:n relation to other objects with a guid. These guids are not unique, but rather are references to other objects.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/guid"
+      }
+    },
+    "imageId": {
+      "$id": "#/definitions/imageId",
+      "title": "The Image ID Schema",
+      "description": "The image id that is used to generate still and pano image urls.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "sortIndex": {
+      "$id": "#/definitions/sortIndex",
+      "title": "The Sort Index Schema",
+      "description": "The index by which to sort elements.",
+      "type": "integer"
+    },
+    "basePrice": {
+      "$id": "#/definitions/basePrice",
+      "title": "The Base Price Schema",
+      "description": "The base price of the unit. Currency independent.",
+      "type": "integer"
+    },
+    "localizationObject": {
+      "$id": "#/definitions/localizationObject",
+      "title": "The Localization Object Schema",
+      "description": "An object containing all localized fields for a given language. Keys are camelCase, values are either string, integer, or number.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-zA-Z0-9]*$"
+      },
+      "patternProperties": {
+        ".*": {
+          "type": ["string", "integer", "number"]
+        }
+      },
+      "examples": [
+        {
+          "productName": "Bauwerk Parkett - Monopark 25",
+          "productInfo": "Mit Bauwerk-Produkten wählen Sie nachhaltige, zu 100% wohngesunde Produkte"
+        }
+      ]
+    },
+    "meta": {
+      "$id": "#/definitions/meta",
+      "title": "The Meta Schema",
+      "description": "An object with all meta information, per language key, for a dataset. This is usually everything that can be localized. A 'default' key is required for the default language.",
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/definitions/localizationObject"
+        }
+      },
+      "examples": [
+        {
+          "default": {
+            "productName": "Bauwerk Parkett - Monopark 25",
+            "productInfo": "Mit Bauwerk-Produkten wählen Sie nachhaltige, zu 100% wohngesunde Produkte"
+          }
+        }
+      ]
+    },
+    "unitAvailability": {
+      "$id": "#/definitions/unitAvailability",
+      "title": "The Unit Availability Schema",
+      "description": "The availability status of a unit. One of ['UNAVAILABLE', 'AVAILABLE', 'RESERVED', 'SOLD'].",
+      "type": "string",
+      "enum": ["UNAVAILABLE", "AVAILABLE", "RESERVED", "SOLD"]
+    },
+    "selectionType": {
+      "$id": "#/definitions/selectionType",
+      "title": "The Selection Type Schema",
+      "description": "The selection type. One of ['FIXED', 'SINGLE', 'MULTI'].",
+      "type": "string",
+      "enum": ["FIXED", "SINGLE", "MULTI"]
+    },
+    "filterType": {
+      "$id": "#/definitions/filterType",
+      "title": "The Filter Type Schema",
+      "description": "The filter type. One of ['LOGICAL', 'NUMERICAL', 'NUMERICAL_RANGE'].",
+      "type": "string",
+      "enum": ["LOGICAL", "NUMERICAL", "NUMERICAL_RANGE"]
+    },
+    "cameraType": {
+      "$id": "#/definitions/cameraType",
+      "title": "The Camera Type Schema",
+      "description": "The camera type. One of ['STILL', 'PANO'].",
+      "type": "string",
+      "enum": ["STILL", "PANO"]
+    },
+    "styleTargetType": {
+      "$id": "#/definitions/styleTargetType",
+      "title": "The Style Target Type",
+      "description": "The style target type. One of ['UNIT', 'ROOM'].",
+      "type": "string",
+      "enum": ["UNIT", "ROOM"]
+    },
+    "unitAttributeGroupType": {
+      "$id": "#/definitions/unitAttributeGroupType",
+      "title": "The Unit Attribute Group Type Schema",
+      "description": "The unit attribute group type. A UnitAttributeGroup that is filterable, must have a group type other than GENERAL.",
+      "type": "string",
+      "enum": [
+        "BUILDING",
+        "FLOOR",
+        "UNIT_TYPE",
+        "SECTION",
+        "GENERAL",
+        "AREA_SIZE",
+        "NUMBER_OF_ROOMS",
+        "BASE_PRICE"
+      ]
+    },
+    "unitAttributeGroup": {
+      "$id": "#/definitions/unitAttributeGroup",
+      "title": "The Unit Attribute Group Schema",
+      "description": "A group of attributes by which to describe units, e.g.: Building, Floor, etc.",
+      "type": "object",
+      "required": ["guid", "type", "filterable", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "type": {
+          "$ref": "#/definitions/unitAttributeGroupType"
+        },
+        "filterable": {
+          "type": "boolean"
+        },
+        "startFilter": {
+          "type": "boolean"
+        },
+        "filterType": {
+          "$ref": "#/definitions/filterType"
+        },
+        "filterSelectionType": {
+          "$ref": "#/definitions/selectionType"
+        },
+        "filterTargetField": {
+          "type": "string"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "filterable": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": ["sortIndex", "filterType"],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "filterType": {
+                      "const": "LOGICAL"
+                    }
+                  }
+                },
+                "then": {
+                  "required": ["filterSelectionType"]
+                }
+              },
+              {
+                "if": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "filterType": {
+                          "const": "NUMERICAL"
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "filterType": {
+                          "const": "NUMERICAL_RANGE"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "then": {
+                  "required": ["filterTargetField"]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "unitAttribute": {
+      "$id": "#/definitions/unitAttribute",
+      "title": "The Unit Attribute Schema",
+      "description": "A concrete unit attribute, assigned to a group, e.g.: Building A, Ground floor, etc.",
+      "type": "object",
+      "required": ["guid", "unitAttributeGroupGuid", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "unitAttributeGroupGuid": {
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "unit": {
+      "$id": "#/definitions/unit",
+      "title": "The Unit Schema",
+      "description": "A unit is a datatype that can be configured.",
+      "type": "object",
+      "required": ["guid", "meta", "status"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "status": {
+          "$ref": "#/definitions/unitAvailability"
+        },
+        "basePrice": {
+          "$ref": "#/definitions/basePrice"
+        },
+        "roomGuids": {
+          "description": "The rooms (either image relevant or configurable) that this unit has. This may differ from the real room amount of the unit.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "extraGuids": {
+          "description": "Extras group that a unit can have which are not bound to specific rooms. For example security packages, parking space.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "unitAttributeGuids": {
+          "description": "Relations to attributes of this unit, for example: third floor, building 1.1.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "unitReferenceGuid": {
+          "description": "The reference to the unit this unit is visualized by. Only units that have a reference to another unit are configurable. Units that have no reference are considered to be 'master' units, and are not visible.",
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "originalUnit": {
+          "description": "If this unit is an original unit. Which means if this unit's visualization is physically correct.",
+          "type": "boolean"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "extra": {
+      "$id": "#/definitions/extra",
+      "title": "The Extra Schema",
+      "description": "A datatype which holds all configurated objects, that can globally be configured for a unit, e.g.: security packages.",
+      "type": "object",
+      "required": ["guid", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "variantGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "room": {
+      "$id": "#/definitions/room",
+      "title": "The Room Schema",
+      "description": "A datatype that belongs to a unit and can be configured. A unit can have a unique set of rooms, or rooms can be shared between units if price calculation is not needed.",
+      "type": "object",
+      "required": ["guid", "imageId", "variantGuids", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "imageId": {
+          "description": "The room's image id, used for sorting purposes.",
+          "$ref": "#/definitions/imageId"
+        },
+        "variantGuids": {
+          "description": "The variants in this room.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "roomReferenceGuid": {
+          "description": "The reference to the room this room is visualized by. Only rooms that have a reference to another room are configurable. Rooms that have no reference are considered to be 'master' rooms.",
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "camera": {
+      "$id": "#/definitions/camera",
+      "title": "The Camera Schema",
+      "description": "A datatype that belongs to a room and holds information on how to render a scene.",
+      "type": "object",
+      "required": ["guid", "type", "imageId", "primaryRoomGuid", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "type": {
+          "$ref": "#/definitions/cameraType"
+        },
+        "imageId": {
+          "$ref": "#/definitions/imageId"
+        },
+        "primaryRoomGuid": {
+          "description": "The primary room of this camera. This is usually the room the camera is located in. Used to get all cameras for a room.",
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "secondaryRoomGuids": {
+          "description": "The secondary rooms of a camera, if present. Secondary rooms are rooms that the camera can see to from the location in it's primary room.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "option": {
+      "$id": "#/definitions/option",
+      "title": "The Option Schema",
+      "description": "A datatype by which variants are grouped.",
+      "type": "object",
+      "required": ["guid", "selectionType", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "selectionType": {
+          "$ref": "#/definitions/selectionType"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "style": {
+      "$id": "#/definitions/style",
+      "title": "The Style Schema",
+      "description": "The style that a variant can have.",
+      "type": "object",
+      "required": ["guid", "sortIndex", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "variant": {
+      "$id": "#/definitions/variant",
+      "title": "The Variant Schema",
+      "description": "A datatype that represents a configurable asset inside a unit.",
+      "type": "object",
+      "required": ["guid", "imageId", "optionGuid", "styleGuids", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "imageId": {
+          "$ref": "#/definitions/imageId"
+        },
+        "optionGuid": {
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "styleGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "variantGuids": {
+          "description": "Variants can have other variants as subselection.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundOption": {
+      "$id": "#/definitions/boundOption",
+      "title": "The Bound Option Schema",
+      "description": "Options that should be grouped for multiple rooms. If variants are selected for these options, they change the variant in the option for every room. Bound options have no effect on the generated image name string.",
+      "type": "object",
+      "required": ["guid", "roomGuids", "optionGuids", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "roomGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "optionGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    },
+    "defaultOptionVariant": {
+      "$id": "#/definitions/defaultOptionVariant",
+      "title": "The Default Option Variant Schema",
+      "description": "Specifies the default variant for an option + style combination.",
+      "type": "object",
+      "required": ["guid", "styleGuid", "optionGuid", "variantGuid"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "styleGuid": {
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "optionGuid": {
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "variantGuid": {
+          "$ref": "#/definitions/guidSingleRelation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "variantDependency": {
+      "$id": "#/definitions/variantDependency",
+      "title": "The Variant Dependency Schema",
+      "description": "Specifies which variants are visible in a room when another variant is selected.",
+      "type": "object",
+      "required": ["guid", "roomGuids", "variantGuids", "isDependencyFor"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "roomGuids": {
+          "description": "The rooms to listen for selected variants. The variants are not necessarily applied to the rooms in this list, this list only describes the rooms to listen for changes.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "variantGuids": {
+          "description": "The variants that control (when selected) which other variants are visible in a room.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "isDependencyFor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/variantDependencyItem"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "variantDependencyItem": {
+      "$id": "#/definitions/variantDependencyItem",
+      "title": "The Variant Dependency Item Schema",
+      "description": "The actual list of visible variants that have a dependency on another variant.",
+      "type": "object",
+      "required": ["roomGuid", "variantGuids", "defaultVariantGuids"],
+      "properties": {
+        "roomGuid": {
+          "description": "The room in which these variants are visible.",
+          "$ref": "#/definitions/guidSingleRelation"
+        },
+        "variantGuids": {
+          "description": "The variants to show. These variants are only visible if a variant of the variant dependency item is selected.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "defaultVariantGuids": {
+          "description": "The defaults for the visible variants. Defaults in this list have to be present for every style present in the variantGuid array.",
+          "$ref": "#/definitions/guidMultiRelation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundVariant": {
+      "$id": "#/definitions/boundVariant",
+      "title": "The Bound Variant Schema",
+      "description": "Defines what variant is automatically selected when another variant in the same unit is selected. Can be in different options. This does not involve grouping.",
+      "type": "object",
+      "required": ["guid", "unitGuids", "variantGuids"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "unitGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "variantGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "defaultStyle": {
+      "$id": "#/definitions/defaultStyle",
+      "title": "The Default Style Schema",
+      "description": "The default styles to apply to either units or rooms, depending on the style target.",
+      "type": "object",
+      "required": ["guid", "styleGuid"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "unitGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "roomGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "styleGuid": {
+          "$ref": "#/definitions/guidSingleRelation"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": ["unitGuids"],
+          "not": {
+            "required": ["roomGuids"]
+          }
+        },
+        {
+          "required": ["roomGuids"],
+          "not": {
+            "required": ["unitGuids"]
+          }
+        }
+      ]
+    },
+    "boundStyle": {
+      "$id": "#/definitions/boundStyle",
+      "title": "The Bound Style Schema",
+      "description": "Defines what style is automatically selected in a room when a style is selected in a different room.",
+      "type": "object",
+      "required": ["guid", "roomGuids"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "roomGuids": {
+          "$ref": "#/definitions/guidMultiRelation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "variantGroup": {
+      "$id": "#/definitions/variantGroup",
+      "title": "The Variant Group Schema",
+      "description": "Defines which variants should be grouped under a common label. This is solely a UI feature and has no effect on the configuration.",
+      "type": "object",
+      "required": ["guid", "variantGuids", "meta"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/modelId"
+        },
+        "guid": {
+          "$ref": "#/definitions/guid"
+        },
+        "variantGuids": {
+          "description": "The variants that are grouped.",
+          "$ref": "#/definitions/guidMultiRelation"
+        },
+        "sortIndex": {
+          "$ref": "#/definitions/sortIndex"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "version",
+    "globalConfig",
+    "units",
+    "rooms",
+    "cameras",
+    "options",
+    "styles",
+    "variants",
+    "defaultOptionVariants"
+  ],
+  "properties": {
+    "version": {
+      "$id": "#/properties/versionString",
+      "$ref": "#/definitions/version"
+    },
+    "globalConfig": {
+      "$id": "#/properties/globalConfigObject",
+      "$ref": "#/definitions/globalConfig"
+    },
+    "unitAttributeGroups": {
+      "$id": "#/properties/unitAttributeGroupArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/unitAttributeGroup"
+      }
+    },
+    "unitAttributes": {
+      "$id": "#/properties/unitAttributeArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/unitAttribute"
+      }
+    },
+    "units": {
+      "$id": "#/properties/unitArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/unit"
+      }
+    },
+    "extras": {
+      "$id": "#/properties/extraArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/extra"
+      }
+    },
+    "rooms": {
+      "$id": "#/properties/roomArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/room"
+      }
+    },
+    "cameras": {
+      "$id": "#/properties/cameraArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/camera"
+      }
+    },
+    "options": {
+      "$id": "#/properties/optionArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/option"
+      }
+    },
+    "styles": {
+      "$id": "#/properties/styleArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/style"
+      }
+    },
+    "variants": {
+      "$id": "#/properties/variantArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/variant"
+      }
+    },
+    "boundOptions": {
+      "$id": "#/properties/boundOptionArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/boundOption"
+      }
+    },
+    "defaultOptionVariants": {
+      "$id": "#/properties/defaultOptionVariantArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/defaultOptionVariant"
+      }
+    },
+    "variantDependencies": {
+      "$id": "#/properties/variantDependencyArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/variantDependency"
+      }
+    },
+    "boundVariants": {
+      "$id": "#/properties/boundVariantArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/boundVariant"
+      }
+    },
+    "defaultStyles": {
+      "$id": "#/properties/defaultStyleArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/defaultStyle"
+      }
+    },
+    "boundStyles": {
+      "$id": "#/properties/boundStyleArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/boundStyle"
+      }
+    },
+    "variantGroups": {
+      "$id": "#/properties/variantGroupArray",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/variantGroup"
+      }
+    }
+  },
+  "additionalProperties": false
+}
