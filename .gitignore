@@ -1,0 +1,4 @@
+.vscode
+frontend
+storage
+**/node_modules/**
