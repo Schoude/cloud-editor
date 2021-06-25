@@ -3,7 +3,6 @@ import {
   CORSConfig,
   cors,
 } from 'https://deno.land/x/abc@v1.3.3/middleware/cors.ts'
-// import { HttpMethod } from 'https://deno.land/x/abc@v1.3.3/constants.ts'
 
 const app = new Application()
 
