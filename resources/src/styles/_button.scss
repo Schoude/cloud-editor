@@ -1,0 +1,26 @@
+@mixin curtain($color: red, $duration: 0.25s, $from: top) {
+  @content;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $color;
+    opacity: 0.75;
+    z-index: -1;
+    @if $from == top {
+      transform: translateY(-100%);
+    } @else {
+      transform: translateY(100%);
+    }
+    transition: transform $duration ease;
+  }
+
+  &:hover::before {
+    transform: translateY(0);
+  }
+}

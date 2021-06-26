@@ -9,6 +9,7 @@ TheHeader
 import { defineComponent, onMounted } from 'vue';
 import TheHeader from './components/layout/TheHeader.vue';
 import TheSideMenu from './components/layout/TheSideMenu.vue';
+import { useValidation } from './composables/use-validation';
 
 export default defineComponent({
   name: 'App',
@@ -17,11 +18,7 @@ export default defineComponent({
     TheSideMenu,
   },
   setup: () => {
-    async function loadSchema() {
-      const res = await fetch('./schemas/cloud-property-schema.json');
-      console.log(await res.json());
-    }
-
+    const { loadSchema } = useValidation();
     onMounted(async () => await loadSchema());
   },
 });

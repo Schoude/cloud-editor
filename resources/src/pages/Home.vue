@@ -1,27 +1,26 @@
 <template lang="pug">
 section.home
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
-  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus sequi doloremque quasi iusto in impedit fuga facere nobis repellendus tempore aliquid quam ipsum modi officiis, magnam enim natus itaque!
+  BaseButton(@click='openFile') JSON-Datei öffnen
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import BaseButton from '../components/buttons/BaseButton.vue';
+import { useData } from '../composables/use-data';
 
 export default defineComponent({
-  name: "Home",
+  name: 'Home',
+  components: {
+    BaseButton,
+  },
+  setup: () => {
+    const { openFile, currentFile } = useData();
+
+    return {
+      openFile,
+      currentFile,
+    };
+  },
 });
 </script>
 
