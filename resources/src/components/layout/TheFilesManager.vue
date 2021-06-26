@@ -8,7 +8,7 @@
         autocomplete='off',
         v-model='saveFileName'
       )
-    BaseButton(@click='saveFile') JSON-Datei speichern
+    BaseButton(@click='saveFile') 💾 JSON-Datei speichern
   Suspense
     template(#default)
       TheFilesTable

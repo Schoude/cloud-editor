@@ -2,7 +2,7 @@
 .files-table-item 
   span.name {{ fileName }}
   .actions
-    button.delete X
+    button.delete ✖️
 </template>
 
 <script lang="ts">

@@ -1,7 +1,7 @@
 
 <template lang="pug">
 .the-json-file-loader
-  BaseButton(@click='openJsonFile') JSON-Datei öffnen
+  BaseButton(@click='openJsonFile') 📁 JSON-Datei öffnen
   span.loaded-file__name(v-if='fileLoaded') <b>{{ currentFileName }}</b> geladen <small>(Schema-Version: {{ currentFile?.version }})</small>.
   span.loaded-file__name(v-else) Keine Datei geladen.
 </template>
