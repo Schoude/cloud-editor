@@ -1,9 +1,9 @@
 <template lang="pug">
 aside.the-side-menu
   ButtonNavigation(:to='ROUTE_NAMES.HOME') Home
-  ButtonNavigation(to='editor') Edit
-  ButtonNavigation(to='merger') Merge
-  ButtonNavigation(to='diff') Diff
+  ButtonNavigation(:to='ROUTE_NAMES.EDIT') Edit
+  ButtonNavigation(:to='ROUTE_NAMES.MERGE') Merge
+  ButtonNavigation(:to='ROUTE_NAMES.DIFF') Diff
 </template>
 
 <script lang="ts">

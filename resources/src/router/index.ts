@@ -7,6 +7,21 @@ const routes: Array<RouteRecordRaw> = [
     name: ROUTE_NAMES.HOME,
     component: () => import('../pages/Home.vue'),
   },
+  {
+    path: '/edit',
+    name: ROUTE_NAMES.EDIT,
+    component: () => import('../pages/Edit.vue'),
+  },
+  {
+    path: '/merge',
+    name: ROUTE_NAMES.MERGE,
+    component: () => import('../pages/Merge.vue'),
+  },
+  {
+    path: '/diff',
+    name: ROUTE_NAMES.DIFF,
+    component: () => import('../pages/Diff.vue'),
+  },
 ];
 
 const router = createRouter({
