@@ -2,19 +2,32 @@
 .files-table-item 
   span.name {{ fileName }}
   .actions
-    button.delete ✖️
+    button.delete(@click='onFileDeleteClick') ✖️
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useData } from '../../composables/use-data';
 
 export default defineComponent({
   name: 'FilesTableItem',
+  emits: ['file-delete'],
   props: {
     fileName: {
       type: String,
       required: true,
     },
+  },
+  setup: (props, { emit }) => {
+    const { deleteFile } = useData();
+
+    async function onFileDeleteClick() {
+      await deleteFile(props.fileName);
+      emit('file-delete');
+    }
+    return {
+      onFileDeleteClick,
+    };
   },
 });
 </script>

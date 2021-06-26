@@ -8,7 +8,7 @@
         autocomplete='off',
         v-model='saveFileName'
       )
-    BaseButton(@click='saveFile') 💾 JSON-Datei speichern
+    BaseButton(@click='onSaveFileClick') 💾 JSON-Datei speichern
   Suspense
     template(#default)
       TheFilesTable
@@ -29,15 +29,26 @@ export default defineComponent({
     TheFilesTable,
   },
   setup: () => {
-    const { currentFile, currentFileName, fileLoaded, saveFileName, saveFile } =
-      useData();
+    const {
+      currentFile,
+      currentFileName,
+      fileLoaded,
+      saveFileName,
+      saveFile,
+      loadFiles,
+    } = useData();
+
+    async function onSaveFileClick() {
+      await saveFile();
+      loadFiles();
+    }
 
     return {
       currentFile,
       currentFileName,
       fileLoaded,
       saveFileName,
-      saveFile,
+      onSaveFileClick,
     };
   },
 });

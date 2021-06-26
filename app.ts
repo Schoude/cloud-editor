@@ -46,3 +46,13 @@ app.get('/files', async (c) => {
   c.response.status = 200;
   c.response.body = JSON.stringify(files);
 });
+
+app.delete('/file/:fileName', async (c) => {
+  const fileName = c.params.fileName.replaceAll('%20', ' ');
+  try {
+    await Deno.remove(`storage/${fileName}.json`);
+    c.response.status = 200;
+  } catch (error) {
+    c.response.status = 500;
+  }
+});

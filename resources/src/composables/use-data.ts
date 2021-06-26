@@ -52,6 +52,16 @@ export const useData = () => {
     }
   }
 
+  async function deleteFile(fileName: string) {
+    try {
+      await fetch(`http://127.0.0.1:8080/file/${fileName}`, {
+        method: 'DELETE',
+      });
+    } catch (e: unknown) {
+      console.log((e as Error).message);
+    }
+  }
+
   async function loadFiles() {
     try {
       const filesList = await fetch('http://127.0.0.1:8080/files');
@@ -69,6 +79,7 @@ export const useData = () => {
     saveFileName,
     saveFile,
     loadFiles,
+    deleteFile,
     existingFiles,
   };
 };

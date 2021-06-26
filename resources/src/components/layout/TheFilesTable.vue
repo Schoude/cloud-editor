@@ -9,9 +9,12 @@
       placeholder='cloud-project-property-data'
     )
   .table-content
-    TransitionGroup(name='list-filter')
-      template(v-for='fileName of filteredFiles', :key='fileName')
-        FilesTableItem(:fileName='fileName')
+    template(v-if='filteredFiles.length > 0') 
+      TransitionGroup(name='list-filter')
+        template(v-for='fileName of filteredFiles', :key='fileName')
+          FilesTableItem(:fileName='fileName', @file-delete='loadFiles')
+    template(v-else)
+      span Keine Dateien gefunden.
 </template>
 
 <script lang="ts">
@@ -38,6 +41,7 @@ export default defineComponent({
     return {
       filteredFiles,
       searchTerm,
+      loadFiles,
     };
   },
 });
