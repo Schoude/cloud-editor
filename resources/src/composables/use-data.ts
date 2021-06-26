@@ -35,6 +35,35 @@ export const useData = () => {
     }
   }
 
+  async function writeJsonFile(
+    fileName: string,
+    content: TheInrealCloudPropertySchema
+  ) {
+    try {
+      // @ts-ignore
+      const fileHandle = await window.showSaveFilePicker({
+        suggestedName: fileName,
+        types: [
+          {
+            description: 'JSON Datei',
+            accept: {
+              'application/json': ['.json'],
+            },
+          },
+        ],
+        excludeAcceptAllOption: true,
+      });
+      // Create a FileSystemWritableFileStream to write to.
+      const writable = await fileHandle.createWritable();
+      // Write the contents of the file to the stream.
+      await writable.write(JSON.stringify(content));
+      // Close the file and write the contents to disk.
+      await writable.close();
+    } catch (e: unknown) {
+      console.log((e as Error).message);
+    }
+  }
+
   async function saveFile() {
     try {
       await fetch('http://127.0.0.1:8080/json', {
@@ -94,6 +123,7 @@ export const useData = () => {
 
   return {
     openJsonFile,
+    writeJsonFile,
     currentFile,
     currentFileName,
     fileLoaded,

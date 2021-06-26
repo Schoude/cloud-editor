@@ -3,7 +3,7 @@
   button.load-file(title='Datei laden', @click='onLoadFromStorageClick') ⬆️
   span.name {{ fileName }}
   .actions
-    button.download(title='Datei herunterladen') ⬇️
+    button.download(title='Datei herunterladen', @click='onDownLoadFileClick') ⬇️
     button.delete(@click='onFileDeleteClick', title='Datei löschen') ✖️
 </template>
 
@@ -22,7 +22,8 @@ export default defineComponent({
     },
   },
   setup: (props, { emit }) => {
-    const { deleteFile, loadFileFromStorage, setCurrentFile } = useData();
+    const { deleteFile, loadFileFromStorage, setCurrentFile, writeJsonFile } =
+      useData();
 
     async function onFileDeleteClick() {
       await deleteFile(props.fileName);
@@ -36,9 +37,19 @@ export default defineComponent({
         res?.file as TheInrealCloudPropertySchema
       );
     }
+
+    async function onDownLoadFileClick() {
+      const res = await loadFileFromStorage(props.fileName);
+      await writeJsonFile(
+        res?.fileName as string,
+        res?.file as TheInrealCloudPropertySchema
+      );
+    }
+
     return {
       onFileDeleteClick,
       onLoadFromStorageClick,
+      onDownLoadFileClick,
     };
   },
 });
