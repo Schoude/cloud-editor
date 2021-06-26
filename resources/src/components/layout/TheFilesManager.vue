@@ -13,7 +13,7 @@
     template(#default)
       TheFilesTable
     template(#fallback)
-      Lade Dateien
+      span Lade Dateien
 </template>
 
 <script lang="ts">

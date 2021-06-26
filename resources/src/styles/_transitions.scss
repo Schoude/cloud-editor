@@ -1,0 +1,21 @@
+// List transitions
+.list-filter-enter-active,
+.list-filter-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-filter-leave-from,
+.list-filter-leave-to {
+  opacity: 0;
+}
+
+.list-filter-enter-from {
+  transform: translateX(20px);
+}
+
+.list-filter-leave-to {
+  transform: translateX(-20px);
+}
+.list-filter-move {
+  transition: transform 0.5s ease;
+}

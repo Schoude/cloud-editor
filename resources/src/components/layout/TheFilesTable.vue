@@ -8,16 +8,22 @@
       v-model='searchTerm',
       placeholder='cloud-project-property-data'
     )
-  template(v-for='file of filteredFiles')
-    div {{ file }}
+  .table-content
+    TransitionGroup(name='list-filter')
+      template(v-for='fileName of filteredFiles', :key='fileName')
+        FilesTableItem(:fileName='fileName')
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { useData } from '../../composables/use-data';
+import FilesTableItem from '../table/FilesTableItem.vue';
 
 export default defineComponent({
   name: 'TheFilesTable',
+  components: {
+    FilesTableItem,
+  },
   setup: async () => {
     const { loadFiles, existingFiles } = useData();
     const searchTerm = ref('');
@@ -38,4 +44,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.table-content {
+  width: 400px;
+  margin-top: 1em;
+}
 </style>
