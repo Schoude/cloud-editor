@@ -1,5 +1,9 @@
 import { Application } from 'https://deno.land/x/abc@v1.3.3/mod.ts';
 import {
+  HttpMethod,
+  Header,
+} from 'https://deno.land/x/abc@v1.3.3/constants.ts';
+import {
   CORSConfig,
   cors,
 } from 'https://deno.land/x/abc@v1.3.3/middleware/cors.ts';
@@ -7,7 +11,9 @@ import {
 const app = new Application();
 
 const config: CORSConfig = {
-  allowOrigins: ['http://127.0.0.1:3000'],
+  allowOrigins: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+  allowMethods: [HttpMethod.Get, HttpMethod.Post, HttpMethod.Delete],
+  allowHeaders: [Header.ContentType],
 };
 app.use(cors(config));
 
@@ -20,12 +26,12 @@ app
   .start({ port: 8080 });
 
 app.post('/json', async (c) => {
-  const body = await c.body;
-
+  const body = (await c.body) as { fileName: string; file: string };
+  const fileName = `${body.fileName}.json`;
   try {
-    await Deno.writeTextFile('./storage/my-file.json', JSON.stringify(body));
+    await Deno.writeTextFile(`storage/${fileName}`, JSON.stringify(body.file));
 
-    console.log('Written to ' + 'storage/my-file.json');
+    console.log('Written to ' + `storage/${fileName}`);
   } catch (e) {
     return e.message;
   }
