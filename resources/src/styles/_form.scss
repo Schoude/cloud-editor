@@ -1,0 +1,23 @@
+.form-field {
+  label {
+    display: block;
+    padding-left: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  input[type='text'] {
+    display: block;
+    border: 1px solid rgba(white, 0.4);
+    background: transparent;
+    color: white;
+    width: 300px;
+    padding: 0 0.5em;
+    height: 42px;
+    transition: border 0.45s ease;
+
+    &:hover,
+    &:focus {
+      border: 1px solid rgba(white, 0.8);
+    }
+  }
+}

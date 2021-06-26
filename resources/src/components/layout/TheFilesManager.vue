@@ -5,20 +5,28 @@
       label(for='save-file__name') Dateiname
       input#save-file__name.save-file__name(
         type='text',
+        autocomplete='off',
         v-model='saveFileName'
       )
     BaseButton(@click='saveFile') JSON-Datei speichern
+  Suspense
+    template(#default)
+      TheFilesTable
+    template(#fallback)
+      Lade Dateien
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import { useData } from '../../composables/use-data';
 import BaseButton from '../buttons/BaseButton.vue';
+import TheFilesTable from './TheFilesTable.vue';
 
 export default defineComponent({
   name: 'TheFilesManager',
   components: {
     BaseButton,
+    TheFilesTable,
   },
   setup: () => {
     const { currentFile, currentFileName, fileLoaded, saveFileName, saveFile } =
@@ -36,27 +44,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.the-files-manager {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2em;
+}
+
 .save-file {
   display: flex;
   align-items: center;
   column-gap: 2em;
-}
-
-.form-field {
-  label {
-    display: block;
-    padding-left: 0.5em;
-    margin-bottom: 0.5em;
-  }
-
-  .save-file__name {
-    display: block;
-    border: 1px solid rgba(white, 0.4);
-    background: transparent;
-    color: white;
-    width: 300px;
-    padding: 0 0.5em;
-    height: 42px;
-  }
 }
 </style>

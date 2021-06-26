@@ -41,7 +41,7 @@ app.get('/files', async (c) => {
   const files: string[] = [];
 
   for await (const dirEntry of Deno.readDir('./storage')) {
-    files.push(dirEntry.name);
+    files.push(dirEntry.name.replace(/.json/, ''));
   }
   c.response.status = 200;
   c.response.body = JSON.stringify(files);

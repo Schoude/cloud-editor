@@ -4,6 +4,7 @@ const currentFile: Ref<TheInrealCloudPropertySchema | null> = ref(null);
 const currentFileName = ref('');
 const fileLoaded = computed(() => currentFile.value != null);
 const saveFileName = ref('');
+const existingFiles: Ref<string[]> = ref([]);
 
 watch(
   currentFileName,
@@ -51,6 +52,15 @@ export const useData = () => {
     }
   }
 
+  async function loadFiles() {
+    try {
+      const filesList = await fetch('http://127.0.0.1:8080/files');
+      existingFiles.value = await filesList.json();
+    } catch (e: unknown) {
+      console.log((e as Error).message);
+    }
+  }
+
   return {
     openJsonFile,
     currentFile,
@@ -58,5 +68,7 @@ export const useData = () => {
     fileLoaded,
     saveFileName,
     saveFile,
+    loadFiles,
+    existingFiles,
   };
 };
