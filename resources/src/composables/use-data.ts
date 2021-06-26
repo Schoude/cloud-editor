@@ -71,6 +71,27 @@ export const useData = () => {
     }
   }
 
+  async function loadFileFromStorage(fileName: string) {
+    try {
+      const res = await fetch(`http://127.0.0.1:8080/file/${fileName}`);
+      const data = await res.json();
+      return {
+        fileName: data.fileName,
+        file: JSON.parse(data.contents),
+      } as { file: TheInrealCloudPropertySchema; fileName: string };
+    } catch (e: unknown) {
+      console.log((e as Error).message);
+    }
+  }
+
+  function setCurrentFile(
+    fileName: string,
+    file: TheInrealCloudPropertySchema
+  ) {
+    currentFileName.value = fileName;
+    currentFile.value = file;
+  }
+
   return {
     openJsonFile,
     currentFile,
@@ -81,5 +102,7 @@ export const useData = () => {
     loadFiles,
     deleteFile,
     existingFiles,
+    loadFileFromStorage,
+    setCurrentFile,
   };
 };

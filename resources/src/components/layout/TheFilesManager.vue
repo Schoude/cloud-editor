@@ -8,7 +8,9 @@
         autocomplete='off',
         v-model='saveFileName'
       )
-    BaseButton(@click='onSaveFileClick') 💾 JSON-Datei speichern
+    BaseButton.save-button(@click='onSaveFileClick') 💾 JSON-Datei speichern
+  .save-file(v-else)
+    span Keine Datei geladen
   Suspense
     template(#default)
       TheFilesTable
@@ -56,14 +58,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .the-files-manager {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 50% 50%;
   row-gap: 2em;
 }
 
 .save-file {
-  display: flex;
-  align-items: center;
-  column-gap: 2em;
+  .save-button {
+    margin-top: 2em;
+  }
 }
 </style>

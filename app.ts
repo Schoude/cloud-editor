@@ -47,6 +47,15 @@ app.get('/files', async (c) => {
   c.response.body = JSON.stringify(files);
 });
 
+app.get('/file/:fileName', async (c) => {
+  const fileName = c.params.fileName.replaceAll('%20', ' ');
+  const text = await Deno.readTextFile(`storage/${fileName}.json`);
+  const payload = { fileName, contents: text };
+
+  c.response.status = 200;
+  c.response.body = JSON.stringify(payload);
+});
+
 app.delete('/file/:fileName', async (c) => {
   const fileName = c.params.fileName.replaceAll('%20', ' ');
   try {
