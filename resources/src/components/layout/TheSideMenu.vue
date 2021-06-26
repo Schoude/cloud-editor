@@ -1,16 +1,24 @@
 <template lang="pug">
 aside.the-side-menu
-  p side-menu-item
-  p side-menu-item
-  p side-menu-item
-  p side-menu-item
+  ButtonNavigation(:to='ROUTE_NAMES.HOME') Home
+  ButtonNavigation(to='editor') Edit
+  ButtonNavigation(to='merger') Merge
+  ButtonNavigation(to='diff') Diff
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import { ROUTE_NAMES } from '../../router/routing-info';
+import ButtonNavigation from '../buttons/ButtonNavigation.vue';
 
 export default defineComponent({
-  name: "TheSideMenu",
+  name: 'TheSideMenu',
+  components: {
+    ButtonNavigation,
+  },
+  setup: () => {
+    return { ROUTE_NAMES };
+  },
 });
 </script>
 
@@ -18,7 +26,12 @@ export default defineComponent({
 @use '../../styles/_variables' as *;
 
 .the-side-menu {
-  width: 200px;
+  width: 150px;
   background-color: $color-element-alt;
+  padding-top: 1em;
+
+  .button-navigation {
+    width: 100%;
+  }
 }
 </style>
