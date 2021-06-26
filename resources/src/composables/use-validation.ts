@@ -5,7 +5,7 @@ const schema: Ref<TheInrealCloudPropertySchema | null> = ref(null);
 export const useValidation = () => {
   async function loadSchema() {
     const res = await fetch('../../schemas/cloud-property-schema.json');
-    schema.value = (await res.json()) as TheInrealCloudPropertySchema;
+    schema.value = await res.json();
   }
 
   return {

@@ -1,6 +1,6 @@
 import { computed, ref, Ref, watch } from 'vue';
-import { TheInrealCloudPropertySchema } from '../types/property-schema';
-const currentFile: Ref<TheInrealCloudPropertySchema | null> = ref(null);
+import { TheInrealCloudProperty } from '../types/property';
+const currentFile: Ref<TheInrealCloudProperty | null> = ref(null);
 const currentFileName = ref('');
 const fileLoaded = computed(() => currentFile.value != null);
 const saveFileName = ref('');
@@ -37,7 +37,7 @@ export const useData = () => {
 
   async function writeJsonFile(
     fileName: string,
-    content: TheInrealCloudPropertySchema
+    content: TheInrealCloudProperty
   ) {
     try {
       // @ts-ignore
@@ -107,16 +107,13 @@ export const useData = () => {
       return {
         fileName: data.fileName,
         file: JSON.parse(data.contents),
-      } as { file: TheInrealCloudPropertySchema; fileName: string };
+      } as { file: TheInrealCloudProperty; fileName: string };
     } catch (e: unknown) {
       console.log((e as Error).message);
     }
   }
 
-  function setCurrentFile(
-    fileName: string,
-    file: TheInrealCloudPropertySchema
-  ) {
+  function setCurrentFile(fileName: string, file: TheInrealCloudProperty) {
     currentFileName.value = fileName;
     currentFile.value = file;
   }

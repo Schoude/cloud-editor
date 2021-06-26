@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useData } from '../../composables/use-data';
-import { TheInrealCloudPropertySchema } from '../../types/property-schema';
+import { TheInrealCloudProperty } from '../../types/property';
 
 export default defineComponent({
   name: 'FilesTableItem',
@@ -34,7 +34,7 @@ export default defineComponent({
       const res = await loadFileFromStorage(props.fileName);
       setCurrentFile(
         res?.fileName as string,
-        res?.file as TheInrealCloudPropertySchema
+        res?.file as TheInrealCloudProperty
       );
     }
 
@@ -42,7 +42,7 @@ export default defineComponent({
       const res = await loadFileFromStorage(props.fileName);
       await writeJsonFile(
         res?.fileName as string,
-        res?.file as TheInrealCloudPropertySchema
+        res?.file as TheInrealCloudProperty
       );
     }
 
