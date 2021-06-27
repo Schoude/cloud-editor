@@ -1,6 +1,6 @@
 <template lang="pug">
 TheHeader
-.content
+.app-content
   TheSideMenu
   RouterView.page
 </template>
@@ -30,12 +30,12 @@ export default defineComponent({
 #app {
   display: flex;
   flex-direction: column;
-}
 
-.content {
-  flex: 1;
-  display: flex;
-  overflow: auto;
+  .app-content {
+    flex: 1;
+    display: flex;
+    overflow: auto;
+  }
 }
 
 p {

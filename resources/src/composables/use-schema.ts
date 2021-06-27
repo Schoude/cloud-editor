@@ -21,10 +21,15 @@ export const useSchema = () => {
       ?.description;
   }
 
+  function getPropertyType(propertyName: string) {
+    return schema.value?.properties[propertyName].type;
+  }
+
   return {
     loadSchema,
     schema,
     makePropertyNameSingular,
     getDescription,
+    getPropertyType,
   };
 };
