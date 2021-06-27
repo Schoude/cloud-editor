@@ -4,8 +4,8 @@
     .text(v-if='entry.guid') {{ entry.guid }}
     .text(v-if='entry.meta.default.name') {{ entry.meta?.default.name }}
   .actions
-    button.edit 🖊️
-    button.delete 🗑️
+    button.edit(title='Editieren') 🖊️
+    button.delete(title='Löschen') 🗑️
 </template>
 
 <script lang="ts">
@@ -58,6 +58,7 @@ export default defineComponent({
   transition: background-color 0.4s ease;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   transition: background-color 0.35s ease, transform 0.5s ease,
     opacity 0.5s ease;
