@@ -32,8 +32,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use '../../styles/_scrollbar' as *;
+
 .tabs-header {
   display: flex;
   overflow: auto;
+  @include scrollbar(true);
 }
 </style>
