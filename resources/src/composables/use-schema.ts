@@ -9,8 +9,10 @@ export const useSchema = () => {
   }
 
   function makePropertyNameSingular(propertyName: string): string {
-    return propertyName.endsWith('s')
-      ? propertyName.replace('s', '')
+    return propertyName.endsWith('ies')
+      ? propertyName.replace('ies', 'y')
+      : propertyName.endsWith('s')
+      ? propertyName.slice(0, propertyName.length - 1)
       : propertyName;
   }
 
