@@ -25,11 +25,20 @@ export const useSchema = () => {
     return schema.value?.properties[propertyName].type;
   }
 
+  // Gets all the primary keys of a property based on the schema.
+  function getKeysOfProperty(propertyName: string) {
+    return Object.keys(
+      schema.value?.definitions[makePropertyNameSingular(propertyName)]
+        .properties as {}
+    );
+  }
+
   return {
     loadSchema,
     schema,
     makePropertyNameSingular,
     getDescription,
     getPropertyType,
+    getKeysOfProperty,
   };
 };

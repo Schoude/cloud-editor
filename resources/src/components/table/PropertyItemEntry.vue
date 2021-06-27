@@ -29,12 +29,16 @@ export default defineComponent({
     const { makePropertyNameSingular } = useSchema();
 
     function onPropertyItemClick() {
-      setActiveModal<{ title: string }>('ModalPropertyDetail', {
-        title: `${
-          (props.entry as IPropertyItemEntry)?.meta?.default.name ??
-          (props.entry as IPropertyItemEntry)?.guid
-        } - ${makePropertyNameSingular(selectedTab.value)}`,
-      });
+      setActiveModal<{ title: string; entryBaseInfo: any }>(
+        'ModalPropertyDetail',
+        {
+          title: `${
+            (props.entry as IPropertyItemEntry)?.meta?.default.name ??
+            (props.entry as IPropertyItemEntry)?.guid
+          } - ${makePropertyNameSingular(selectedTab.value)}`,
+          entryBaseInfo: props.entry,
+        }
+      );
     }
 
     return {
