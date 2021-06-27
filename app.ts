@@ -7,6 +7,10 @@ import {
   CORSConfig,
   cors,
 } from 'https://deno.land/x/abc@v1.3.3/middleware/cors.ts';
+import { green, bold, blue } from 'https://deno.land/std@0.99.0/fmt/colors.ts';
+
+console.info = (txt: string) =>
+  console.log(`${blue(bold('[INFO]'))} ${green(txt)}`);
 
 const app = new Application();
 
@@ -17,7 +21,7 @@ const config: CORSConfig = {
 };
 app.use(cors(config));
 
-console.log('http://127.0.0.1:8080');
+console.info('Server listening on http://127.0.0.1:8080');
 
 app
   .static('/', 'frontend')
@@ -31,7 +35,7 @@ app.post('/json', async (c) => {
   try {
     await Deno.writeTextFile(`storage/${fileName}`, JSON.stringify(body.file));
 
-    console.log('Written to ' + `storage/${fileName}`);
+    console.info('File written to ' + `storage/${fileName}`);
   } catch (e) {
     return e.message;
   }
