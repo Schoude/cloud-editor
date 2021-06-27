@@ -1,7 +1,7 @@
 // General transitions
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.35 ease;
+  transition: opacity 0.35s ease;
 }
 
 .fade-enter-from,
@@ -44,5 +44,5 @@
 
 .scale-modal-enter-active,
 .scale-modal-leave-active {
-  transition: transform 0.5s ease;
+  transition: transform 0.35s ease;
 }

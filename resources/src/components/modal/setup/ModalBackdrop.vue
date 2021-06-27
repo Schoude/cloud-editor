@@ -31,7 +31,7 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(green, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;

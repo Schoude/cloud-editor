@@ -73,9 +73,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use '../../styles/_variables' as *;
+
 .modal-property-detail {
   width: 600px;
-  background-color: midnightblue;
+  background-color: $color-element;
   border-radius: 0.25em;
   align-items: center;
 }
