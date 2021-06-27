@@ -11,19 +11,26 @@
     template(v-if='showEmptyFallback')
       .fallback-text Keine Daten vorhanden
     template(v-else)
-      .entry-list {{ getDataOfSelectedTab }}
+      .entry-list
+        template(v-if='propertyIsArray', v-for='entry of getDataOfSelectedTab')
+          PropertyItemEntry(:entry='entry')
+        template(v-else)
+          PropertyItemEntry(:entry='getFallBackEntry')
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { useEditor } from '../../composables/use-editor';
 import { useSchema } from '../../composables/use-schema';
+import { IPropertyItemEntry } from '../../types/property-schema';
 import ButtonFab from '../buttons/ButtonFab.vue';
+import PropertyItemEntry from '../table/PropertyItemEntry.vue';
 
 export default defineComponent({
   name: 'TabContent',
   components: {
     ButtonFab,
+    PropertyItemEntry,
   },
   setup: () => {
     const { getDataOfSelectedTab, selectedTab } = useEditor();
@@ -51,6 +58,26 @@ export default defineComponent({
       () => (getDataOfSelectedTab.value as [])?.length ?? 0
     );
 
+    const getFallBackEntry = computed<IPropertyItemEntry>(
+      (): IPropertyItemEntry => {
+        let entry: IPropertyItemEntry;
+        typeof getDataOfSelectedTab.value === 'string'
+          ? (entry = {
+              meta: { default: { name: getDataOfSelectedTab.value } },
+            })
+          : (entry = {
+              guid: (getDataOfSelectedTab.value as IPropertyItemEntry)?.guid,
+              meta: {
+                default: {
+                  name: (getDataOfSelectedTab.value as IPropertyItemEntry)?.meta
+                    ?.default.name as string,
+                },
+              },
+            });
+        return entry;
+      }
+    );
+
     return {
       getDataOfSelectedTab,
       showEmptyFallback,
@@ -58,6 +85,7 @@ export default defineComponent({
       propertyIsArray,
       showAddButton,
       getCount,
+      getFallBackEntry,
     };
   },
 });
@@ -83,5 +111,11 @@ export default defineComponent({
 .fallback-text {
   text-align: center;
   font-size: 1.25em;
+}
+
+.entry-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
 }
 </style>
