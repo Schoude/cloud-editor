@@ -26,13 +26,9 @@ export default defineComponent({
     ModalBackdrop,
   },
   setup: () => {
-    const { showModalBackDrop, displayModal, setActiveModal } =
-      useModalManager();
+    const { showModalBackDrop, displayModal } = useModalManager();
     const { loadSchema } = useSchema();
-    onMounted(async () => {
-      await loadSchema();
-      setActiveModal('ModalPropertyDetail', { name: 'meddler' });
-    });
+    onMounted(async () => await loadSchema());
 
     return {
       showModalBackDrop,

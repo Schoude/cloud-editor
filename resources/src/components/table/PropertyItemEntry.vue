@@ -1,5 +1,5 @@
 <template lang="pug">
-.property-item-entry
+.property-item-entry(@click.stop='onPropertyItemClick')
   .text-content
     .text(v-if='entry.guid') {{ entry.guid }}
     .text(v-if='entry.meta.default.name') {{ entry.meta?.default.name }}
@@ -10,6 +10,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { useEditor } from '../../composables/use-editor';
+import { useModalManager } from '../../composables/use-modal-manager';
+import { useSchema } from '../../composables/use-schema';
 import { IPropertyItemEntry } from '../../types/property-schema';
 
 export default defineComponent({
@@ -19,6 +22,24 @@ export default defineComponent({
       type: Object as PropType<IPropertyItemEntry>,
       required: true,
     },
+  },
+  setup: (props) => {
+    const { setActiveModal } = useModalManager();
+    const { selectedTab } = useEditor();
+    const { makePropertyNameSingular } = useSchema();
+
+    function onPropertyItemClick() {
+      setActiveModal<{ title: string }>('ModalPropertyDetail', {
+        title: `${
+          (props.entry as IPropertyItemEntry)?.meta?.default.name ??
+          (props.entry as IPropertyItemEntry)?.guid
+        } - ${makePropertyNameSingular(selectedTab.value)}`,
+      });
+    }
+
+    return {
+      onPropertyItemClick,
+    };
   },
 });
 </script>
