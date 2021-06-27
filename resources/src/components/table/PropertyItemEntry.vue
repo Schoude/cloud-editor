@@ -2,7 +2,7 @@
 .property-item-entry(@click.stop='onPropertyItemClick')
   .text-content
     .text(v-if='entry.guid') {{ entry.guid }}
-    .text(v-if='entry.meta.default.name') {{ entry.meta?.default.name }}
+    .text(v-if='entry.meta?.default.name') {{ entry.meta?.default.name }}
   .actions
     button.edit(title='Editieren') 🖊️
     button.delete(title='Löschen') 🗑️
