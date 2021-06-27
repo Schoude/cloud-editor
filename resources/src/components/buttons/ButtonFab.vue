@@ -1,0 +1,33 @@
+<template lang="pug">
+button.button-fab(role='button')
+  slot
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'ButtonFab',
+});
+</script>
+
+<style lang="scss" scoped>
+@use '../../styles/_button' as *;
+@use '../../styles/_variables' as *;
+
+.button-fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid $color-primary;
+  font-size: 1.25em;
+
+  @include curtain($color-primary) {
+    position: relative;
+    overflow: hidden;
+  }
+}
+</style>
