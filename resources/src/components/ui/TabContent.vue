@@ -6,20 +6,27 @@
       .infos
         template(v-if='showInfo')
           ButtonFab.add-entry(v-if='showAddButton') ➕
-          .count(v-if='propertyIsArray') Anzahl: {{ getCount }}
+          .count(v-if='propertyIsArray') Anzahl: {{ filteredEntries.length }}/{{ getCount }}
+          label(for='search-term') Suche nach GUID oder Name:
+          .form-field
+            input#search-term(
+              type='text',
+              v-model='searchTerm',
+              autocomplete='off'
+            )
         template(v-else) Keine Aktionen verfügbar
     template(v-if='showEmptyFallback')
       .fallback-text Keine Daten vorhanden
     template(v-else)
       .entry-list
-        template(v-if='propertyIsArray', v-for='entry of getDataOfSelectedTab')
+        template(v-if='propertyIsArray', v-for='entry of filteredEntries')
           PropertyItemEntry(:entry='entry')
         template(v-else)
           PropertyItemEntry(:entry='getFallBackEntry')
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useEditor } from '../../composables/use-editor';
 import { useSchema } from '../../composables/use-schema';
 import { IPropertyItemEntry } from '../../types/property-schema';
@@ -35,6 +42,7 @@ export default defineComponent({
   setup: () => {
     const { getDataOfSelectedTab, selectedTab } = useEditor();
     const { getPropertyType } = useSchema();
+    const searchTerm = ref('');
 
     const showEmptyFallback = computed(
       () =>
@@ -78,6 +86,14 @@ export default defineComponent({
       }
     );
 
+    const filteredEntries = computed(() =>
+      (getDataOfSelectedTab.value as IPropertyItemEntry[]).filter(
+        (entry) =>
+          entry.guid?.includes(searchTerm.value.trim()) ||
+          entry.meta?.default.name.includes(searchTerm.value.trim())
+      )
+    );
+
     return {
       getDataOfSelectedTab,
       showEmptyFallback,
@@ -86,6 +102,8 @@ export default defineComponent({
       showAddButton,
       getCount,
       getFallBackEntry,
+      filteredEntries,
+      searchTerm,
     };
   },
 });
@@ -105,6 +123,10 @@ export default defineComponent({
     align-items: center;
     column-gap: 1em;
     min-height: 40px;
+
+    .count {
+      min-width: 100px;
+    }
   }
 }
 
