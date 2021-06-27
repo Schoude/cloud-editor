@@ -3,12 +3,19 @@ TheHeader
 .app-content
   TheSideMenu
   RouterView.page
+
+// Modal Manager Components
+Teleport(to='#modal__container')
+  Transition(name='fade', @enter='displayModal')
+    ModalBackdrop(v-if='showModalBackDrop', key='modal-backdrop')
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import TheHeader from './components/layout/TheHeader.vue';
 import TheSideMenu from './components/layout/TheSideMenu.vue';
+import ModalBackdrop from './components/modal/setup/ModalBackdrop.vue';
+import { useModalManager } from './composables/use-modal-manager';
 import { useSchema } from './composables/use-schema';
 
 export default defineComponent({
@@ -16,10 +23,21 @@ export default defineComponent({
   components: {
     TheHeader,
     TheSideMenu,
+    ModalBackdrop,
   },
   setup: () => {
+    const { showModalBackDrop, displayModal, setActiveModal } =
+      useModalManager();
     const { loadSchema } = useSchema();
-    onMounted(async () => await loadSchema());
+    onMounted(async () => {
+      await loadSchema();
+      setActiveModal('ModalPropertyDetail', { name: 'meddler' });
+    });
+
+    return {
+      showModalBackDrop,
+      displayModal,
+    };
   },
 });
 </script>
