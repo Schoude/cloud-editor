@@ -1,5 +1,7 @@
 import { ROUTE_NAMES } from './routing-info';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useData } from '../composables/use-data';
+const { fileLoaded } = useData();
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,6 +29,14 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  to.name === ROUTE_NAMES.HOME
+    ? next()
+    : fileLoaded.value == false
+    ? next({ name: ROUTE_NAMES.HOME })
+    : next();
 });
 
 export default router;

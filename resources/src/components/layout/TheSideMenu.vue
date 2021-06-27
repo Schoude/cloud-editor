@@ -1,13 +1,15 @@
 <template lang="pug">
 aside.the-side-menu
   ButtonNavigation(:to='ROUTE_NAMES.HOME') 🏠 Home
-  ButtonNavigation(:to='ROUTE_NAMES.EDIT') ⚙️ Editor
-  ButtonNavigation(:to='ROUTE_NAMES.MERGE') 🔗 Merge
-  ButtonNavigation(:to='ROUTE_NAMES.DIFF') ⛓️ Diff
+  template(v-if='fileLoaded')
+    ButtonNavigation(:to='ROUTE_NAMES.EDIT') ⚙️ Editor
+    ButtonNavigation(:to='ROUTE_NAMES.MERGE') 🔗 Merge
+    ButtonNavigation(:to='ROUTE_NAMES.DIFF') ⛓️ Diff
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useData } from '../../composables/use-data';
 import { ROUTE_NAMES } from '../../router/routing-info';
 import ButtonNavigation from '../buttons/ButtonNavigation.vue';
 
@@ -17,7 +19,11 @@ export default defineComponent({
     ButtonNavigation,
   },
   setup: () => {
-    return { ROUTE_NAMES };
+    const { fileLoaded } = useData();
+    return {
+      fileLoaded,
+      ROUTE_NAMES,
+    };
   },
 });
 </script>

@@ -9,7 +9,7 @@ TheHeader
 import { defineComponent, onMounted } from 'vue';
 import TheHeader from './components/layout/TheHeader.vue';
 import TheSideMenu from './components/layout/TheSideMenu.vue';
-import { useValidation } from './composables/use-validation';
+import { useSchema } from './composables/use-schema';
 
 export default defineComponent({
   name: 'App',
@@ -18,7 +18,7 @@ export default defineComponent({
     TheSideMenu,
   },
   setup: () => {
-    const { loadSchema } = useValidation();
+    const { loadSchema } = useSchema();
     onMounted(async () => await loadSchema());
   },
 });

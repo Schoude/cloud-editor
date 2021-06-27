@@ -1,37 +1,47 @@
 <template lang="pug">
 section.edit
-  p(v-for='property of properties') 
-    <span :title='getDescription(property)'>ℹ️</span> {{ property }}
+  p(
+    v-for='tab of getTabs',
+    @click='setSelectedTab(tab)',
+    :class='{ selected: isTabSelected(tab) }'
+  ) 
+    <span :title='getDescription(tab)'>ℹ️</span> {{ tab }}
+  div {{ getDataOfSelectedTab }}
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useValidation } from '../composables/use-validation';
+import { defineComponent } from 'vue';
+import { useEditor } from '../composables/use-editor';
+import { useSchema } from '../composables/use-schema';
 
 export default defineComponent({
   name: 'Edit',
   setup: () => {
-    const { schema } = useValidation();
-    const properties = computed(() =>
-      Object.keys(schema.value?.properties as {})
-    );
+    const { getDescription } = useSchema();
+    const {
+      getTabs,
+      getDataOfSelectedTab,
+      setSelectedTab,
+      selectedTab,
+      isTabSelected,
+    } = useEditor();
 
-    function formatProperty(property: string): string {
-      return property.endsWith('s') ? property.replace('s', '') : property;
-    }
-
-    function getDescription(property: string) {
-      return schema.value?.definitions[formatProperty(property)]?.description;
-    }
+    setSelectedTab(getTabs.value[4]); // units
 
     return {
-      schema,
-      properties,
+      getTabs,
+      selectedTab,
+      isTabSelected,
+      setSelectedTab,
       getDescription,
+      getDataOfSelectedTab,
     };
   },
 });
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+.selected {
+  background-color: red;
+}
 </style>
