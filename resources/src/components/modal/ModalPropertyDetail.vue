@@ -1,8 +1,22 @@
 <template lang="pug">
 .modal-property-detail(role='dialog')
   ModalHeader {{ title }}
-  div 1st level keys {{ getActualKeysOfEntry }}
-  div meta keys {{ getMetaKeys }}
+
+  // exception version
+  template(v-if='selectedTab === "version"')
+    div {{ entryWithData }}
+  template(v-else)
+    template(v-for='key of getActualKeysOfEntry.filter(e => e !== "meta")')
+      div {{ key }}: {{ entryWithData[key] }}
+
+    // exception no meta field
+    template(v-if='getActualKeysOfEntry.includes("meta")')
+      h1 meta
+      template(v-for='keyData of getMetaKeys')
+        template(v-for='alphaKey of Object.keys(keyData)')
+          div {{ alphaKey }}:
+          template(v-for='betaKey of keyData[alphaKey]')
+            div {{ betaKey }}: {{ entryWithData.meta[alphaKey][betaKey] }}
 </template>
 
 <script lang="ts">
@@ -50,20 +64,19 @@ export default defineComponent({
 
     const getMetaKeys = computed(() => {
       const alphaKeys = getActualKeysOfEntry.value.includes('meta')
-        ? //@ts-ignore
-          Object.keys(entryWithData.meta)
+        ? Object.keys(entryWithData.meta)
         : [];
 
       const keysComplete = alphaKeys.map((key) => {
         return {
-          // @ts-ignore
-          [key]: Object.keys(entryWithData.meta[key]),
+          [key]: [...Object.keys(entryWithData.meta[key])],
         };
       });
       return keysComplete;
     });
 
     return {
+      selectedTab,
       getActualKeysOfEntry,
       getMetaKeys,
       entryWithData,
