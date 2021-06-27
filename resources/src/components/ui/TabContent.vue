@@ -1,12 +1,12 @@
 <template lang="pug">
 .tab-content
   .content
-    .details-actions
+    .detail-actions
       .heading Property-Infos
       .infos
-        template(v-if='showInfos')
-          button.add-entry +
-          .count Anzahl: {{ getCount }}
+        template(v-if='showInfo')
+          ButtonFab.add-entry(v-if='showAddButton') ➕
+          .count(v-if='propertyIsArray') Anzahl: {{ getCount }}
         template(v-else) Keine Aktionen verfügbar
     template(v-if='showEmptyFallback')
       .fallback-text Keine Daten vorhanden
@@ -18,30 +18,45 @@
 import { computed, defineComponent } from 'vue';
 import { useEditor } from '../../composables/use-editor';
 import { useSchema } from '../../composables/use-schema';
+import ButtonFab from '../buttons/ButtonFab.vue';
 
 export default defineComponent({
   name: 'TabContent',
+  components: {
+    ButtonFab,
+  },
   setup: () => {
     const { getDataOfSelectedTab, selectedTab } = useEditor();
     const { getPropertyType } = useSchema();
+
     const showEmptyFallback = computed(
       () =>
         (getDataOfSelectedTab.value as [])?.length === 0 ||
         getDataOfSelectedTab.value == null
     );
 
-    const showInfos = computed(
+    const showInfo = computed(
+      () => getDataOfSelectedTab.value == null || propertyIsArray.value
+    );
+
+    const propertyIsArray = computed(
       () => getPropertyType(selectedTab.value) === 'array'
     );
 
-    const getCount = computed(() =>
-      showInfos.value ? (getDataOfSelectedTab.value as []).length : 0
+    const showAddButton = computed(
+      () => getDataOfSelectedTab.value == null || propertyIsArray.value
+    );
+
+    const getCount = computed(
+      () => (getDataOfSelectedTab.value as [])?.length ?? 0
     );
 
     return {
       getDataOfSelectedTab,
       showEmptyFallback,
-      showInfos,
+      showInfo,
+      propertyIsArray,
+      showAddButton,
       getCount,
     };
   },
@@ -49,7 +64,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.details-actions {
+.detail-actions {
   padding: 1em 0;
 
   .heading {
@@ -59,6 +74,9 @@ export default defineComponent({
 
   .infos {
     display: flex;
+    align-items: center;
+    column-gap: 1em;
+    min-height: 40px;
   }
 }
 
