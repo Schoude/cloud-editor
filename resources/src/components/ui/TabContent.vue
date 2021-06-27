@@ -19,8 +19,10 @@
       .fallback-text Keine Daten vorhanden
     template(v-else)
       .entry-list
-        template(v-if='propertyIsArray', v-for='entry of filteredEntries')
-          PropertyItemEntry(:entry='entry')
+        template(v-if='propertyIsArray')
+          TransitionGroup(name='list-filter')
+            template(v-for='entry of filteredEntries', :key='entry')
+              PropertyItemEntry(:entry='entry')
         template(v-else)
           PropertyItemEntry(:entry='getFallBackEntry')
 </template>
@@ -89,8 +91,12 @@ export default defineComponent({
     const filteredEntries = computed(() =>
       (getDataOfSelectedTab.value as IPropertyItemEntry[]).filter(
         (entry) =>
-          entry.guid?.includes(searchTerm.value.trim()) ||
-          entry.meta?.default.name.includes(searchTerm.value.trim())
+          entry.guid
+            ?.toLowerCase()
+            .includes(searchTerm.value.trim().toLowerCase()) ||
+          entry.meta?.default.name
+            .toLowerCase()
+            .includes(searchTerm.value.trim().toLowerCase())
       )
     );
 

@@ -34,6 +34,9 @@ export default defineComponent({
   display: flex;
   align-items: center;
 
+  transition: background-color 0.35s ease, transform 0.5s ease,
+    opacity 0.5s ease;
+
   .text-content {
     flex: 1;
   }
