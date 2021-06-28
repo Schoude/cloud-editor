@@ -1,4 +1,5 @@
 import { computed, ref, Ref, watch } from 'vue';
+import { FileData, loadFile } from '../helpers/file-loader';
 import { TheInrealCloudProperty } from '../types/property';
 const currentFile: Ref<TheInrealCloudProperty | null> = ref(null);
 const currentFileName = ref('');
@@ -14,22 +15,18 @@ watch(
 export const useData = () => {
   async function openJsonFile() {
     try {
-      // @ts-ignore new API that only works in Google Chrome
-      const [fileHandle] = await window.showOpenFilePicker({
+      const fileData = (await loadFile({
         types: [
           {
-            description: 'JSON Files',
-            accept: {
-              'application/json': ['.json'],
-            },
+            description: 'JSON Datein',
+            accept: { 'application/json': ['.json'] },
           },
         ],
         excludeAcceptAllOption: true,
-      });
-      const file = await fileHandle.getFile();
-      const contents = await file.text();
-      currentFileName.value = file.name;
-      currentFile.value = JSON.parse(contents);
+      })) as FileData;
+
+      currentFileName.value = fileData.name;
+      currentFile.value = JSON.parse(fileData.contents);
     } catch (e: unknown) {
       console.log((e as Error).message);
     }
