@@ -1,10 +1,10 @@
 <template lang="pug">
-button.button-fab(role='button', :class='{ [color]: color !== "" }')
+button.button-fab(role='button', :class='classes')
   slot
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ButtonFab',
@@ -12,6 +12,17 @@ export default defineComponent({
     color: {
       type: String,
     },
+  },
+  setup: (props) => {
+    const classes = computed(() => {
+      return {
+        [props.color as string]: props.color !== '',
+      };
+    });
+
+    return {
+      classes,
+    };
   },
 });
 </script>

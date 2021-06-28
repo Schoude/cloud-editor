@@ -7,17 +7,19 @@ section.merge
     .loaded-json
       h2.title-filename JSON-Datei, in die gemerged wird
       .filename {{ currentFileName }}
+  .summary(v-if='csvUnitsWithData.length > 0')
+    .count Anzahl Einheiten: {{ csvUnitsWithData.length }}
+    .form-field
+      label(for='merge-key') Feld in das gemerged wird
+      input#merge-key(type='text', v-model='fieldToMergeInto')
+    ButtonFab(color='red', title='Liste leeren', @click='clearCSVUnits') 🗑️
   .units-list
-    .summary(v-if='csvUnitsWithData.length > 0')
-      ButtonFab(color='red', title='Liste leeren', @click='clearCSVUnits') 🗑️
-      .count Anzahl Einheiten: {{ csvUnitsWithData.length }}
-    .units-list
-      .unit(v-for='unit of csvUnitsWithData', :key='unit.guid')
-        | {{ unit.guid }}: {{ unit.meta.default.name }}
+    .unit(v-for='unit of csvUnitsWithData', :key='unit.guid')
+      | {{ unit.guid }}: {{ unit.meta.default.name }}
 </template> 
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import BaseButton from '../components/buttons/BaseButton.vue';
 import ButtonFab from '../components/buttons/ButtonFab.vue';
 import { useData } from '../composables/use-data';
@@ -31,6 +33,7 @@ export default defineComponent({
     ButtonFab,
   },
   setup: () => {
+    const fieldToMergeInto = ref('units');
     const { currentFileName } = useData();
     const {
       loadCSVFile,
@@ -48,6 +51,7 @@ export default defineComponent({
       onLoadCSVClick,
       csvUnitsWithData,
       clearCSVUnits,
+      fieldToMergeInto,
     };
   },
 });
@@ -67,9 +71,11 @@ export default defineComponent({
   display: flex;
   align-items: center;
   height: 80px;
+  column-gap: 1.5em;
+  margin-bottom: 1.5em;
+}
 
-  .count {
-    margin-left: 1.5em;
-  }
+.count {
+  font-size: 1.25em;
 }
 </style>
