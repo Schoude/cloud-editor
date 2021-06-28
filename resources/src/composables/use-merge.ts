@@ -88,9 +88,14 @@ export const useMerge = () => {
     });
   };
 
+  const clearCSVUnits = () => {
+    csvUnitsWithData.value = [];
+  };
+
   return {
     loadCSVFile,
     generateUnitsFromCSVFile,
     csvUnitsWithData,
+    clearCSVUnits,
   };
 };

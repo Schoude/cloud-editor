@@ -1,5 +1,5 @@
 <template lang="pug">
-button.button-fab(role='button')
+button.button-fab(role='button', :class='{ [color]: color !== "" }')
   slot
 </template>
 
@@ -8,6 +8,11 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ButtonFab',
+  props: {
+    color: {
+      type: String,
+    },
+  },
 });
 </script>
 
@@ -28,6 +33,14 @@ export default defineComponent({
   @include curtain($color-primary) {
     position: relative;
     overflow: hidden;
+  }
+
+  &.red {
+    border: 1px solid #960018;
+    @include curtain(#960018) {
+      position: relative;
+      overflow: hidden;
+    }
   }
 }
 </style>
