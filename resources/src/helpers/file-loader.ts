@@ -1,5 +1,8 @@
-type FileExtension = '.json';
-type Accept = { 'application/json': FileExtension[] };
+type FileExtension = '.json' | '.csv';
+type Accept = {
+  'application/json'?: FileExtension[];
+  'text/csv'?: FileExtension[];
+};
 type FileType = {
   description: string;
   accept: Accept;
