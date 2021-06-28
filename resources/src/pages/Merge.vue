@@ -14,6 +14,7 @@ import { defineComponent } from 'vue';
 import BaseButton from '../components/buttons/BaseButton.vue';
 import { useData } from '../composables/use-data';
 import { useMerge } from '../composables/use-merge';
+import Papa from 'papaparse';
 
 export default defineComponent({
   name: 'Merge',
@@ -27,6 +28,13 @@ export default defineComponent({
     async function onLoadCSVClick() {
       const file = await loadCSVFile();
       console.log(file);
+      const result = Papa.parse(file?.contents, {
+        delimiter: ';',
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        fastMode: true,
+      });
+      console.log(result);
     }
 
     return {
