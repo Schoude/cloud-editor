@@ -25,7 +25,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .modal-header {
   display: flex;
-  padding-left: 0.5em;
+  padding-left: 1rem;
   height: 50px;
   align-items: center;
   font-size: 1.25em;

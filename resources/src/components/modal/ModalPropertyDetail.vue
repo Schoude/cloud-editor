@@ -2,21 +2,26 @@
 .modal-property-detail(role='dialog')
   ModalHeader {{ title }}
 
-  // exception version
-  template(v-if='selectedTab === "version"')
-    div {{ entryWithData }}
-  template(v-else)
-    template(v-for='key of getActualKeysOfEntry.filter(e => e !== "meta")')
-      div {{ key }}: {{ entryWithData[key] }}
+  .modal__content
+    // exception version
+    template(v-if='selectedTab === "version"')
+      .entry-solo {{ entryWithData }}
+    template(v-else)
+      template(v-for='key of getActualKeysOfEntry.filter(e => e !== "meta")')
+        .entry
+          span.key {{ key }}:
+          span.value {{ entryWithData[key] }}
 
-    // exception no meta field
-    template(v-if='getActualKeysOfEntry.includes("meta")')
-      h1 meta
-      template(v-for='keyData of getMetaKeys')
-        template(v-for='alphaKey of Object.keys(keyData)')
-          div {{ alphaKey }}:
-          template(v-for='betaKey of keyData[alphaKey]')
-            div {{ betaKey }}: {{ entryWithData.meta[alphaKey][betaKey] }}
+      // exception no meta field
+      template(v-if='getActualKeysOfEntry.includes("meta")')
+        .meta meta
+        template(v-for='keyData of getMetaKeys')
+          template(v-for='alphaKey of Object.keys(keyData)')
+            .entry.key__sub {{ alphaKey }}:
+            template(v-for='betaKey of keyData[alphaKey]')
+              .entry.key__sub-2
+                span.key {{ betaKey }}:
+                span.value_sub {{ entryWithData.meta[alphaKey][betaKey] }}
 </template>
 
 <script lang="ts">
@@ -89,9 +94,44 @@ export default defineComponent({
 @use '../../styles/_variables' as *;
 
 .modal-property-detail {
-  width: 600px;
+  width: 650px;
   background-color: $color-element;
   border-radius: 0.25em;
   align-items: center;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal__content {
+  padding: 1em;
+}
+
+.entry {
+  & ~ .entry {
+    margin-top: 0.5em;
+  }
+}
+
+.meta {
+  font-weight: 700;
+  margin-top: 1em;
+  font-style: italic;
+}
+
+.key {
+  font-weight: 700;
+  margin-right: 1em;
+}
+
+.key__sub,
+.key__sub-2 {
+  font-weight: 700;
+}
+
+.key__sub {
+  margin-left: 0.5em;
+}
+
+.key__sub-2 {
+  margin-left: 1em;
 }
 </style>
