@@ -123,7 +123,7 @@ export default defineComponent({
 }
 
 .key__sub,
-.key__sub-2 {
+.key__sub-2 .key {
   font-weight: 700;
 }
 

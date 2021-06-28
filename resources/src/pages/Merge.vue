@@ -7,14 +7,19 @@ section.merge
     .loaded-json
       h2.title-filename JSON-Datei, in die gemerged wird
       .filename {{ currentFileName }}
-</template>
+  .units-list
+    .meta-info Anzahl Einheiten: {{ csvUnitsWithData.length }}
+    .units-list
+      .unit(v-for='unit of csvUnitsWithData', :key='unit.guid')
+        | {{ unit.guid }}: {{ unit.meta.default.name }}
+</template> 
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import BaseButton from '../components/buttons/BaseButton.vue';
 import { useData } from '../composables/use-data';
 import { useMerge } from '../composables/use-merge';
-import Papa from 'papaparse';
+import { FileData } from '../helpers/file-loader';
 
 export default defineComponent({
   name: 'Merge',
@@ -23,23 +28,17 @@ export default defineComponent({
   },
   setup: () => {
     const { currentFileName } = useData();
-    const { loadCSVFile } = useMerge();
+    const { loadCSVFile, generateUnitsFromCSVFile, csvUnitsWithData } =
+      useMerge();
 
     async function onLoadCSVClick() {
-      const file = await loadCSVFile();
-      console.log(file);
-      const result = Papa.parse(file?.contents, {
-        delimiter: ';',
-        dynamicTyping: true,
-        skipEmptyLines: true,
-        fastMode: true,
-      });
-      console.log(result);
+      generateUnitsFromCSVFile((await loadCSVFile()) as FileData);
     }
 
     return {
       currentFileName,
       onLoadCSVClick,
+      csvUnitsWithData,
     };
   },
 });
