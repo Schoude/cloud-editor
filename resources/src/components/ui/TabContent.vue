@@ -6,7 +6,7 @@
       .infos
         template(v-if='showInfo')
           ButtonFab.add-entry(v-if='showAddButton') ➕
-          .count(v-if='propertyIsArray') Anzahl: {{ filteredEntries.length }}/{{ getCount }}
+          .count(v-if='propertyIsArray') Anzahl: {{ filteredEntries?.length ?? 0 }}/{{ getCount }}
           label(for='search-term') Suche nach GUID oder Name:
           .form-field
             input#search-term(
@@ -89,7 +89,7 @@ export default defineComponent({
     );
 
     const filteredEntries = computed(() =>
-      (getDataOfSelectedTab.value as IPropertyItemEntry[]).filter(
+      (getDataOfSelectedTab.value as IPropertyItemEntry[])?.filter(
         (entry) =>
           entry.guid
             ?.toLowerCase()
