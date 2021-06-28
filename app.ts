@@ -7,6 +7,7 @@ import {
   CORSConfig,
   cors,
 } from 'https://deno.land/x/abc@v1.3.3/middleware/cors.ts';
+import { ensureDir } from 'https://deno.land/std@0.99.0/fs/mod.ts';
 import { green, bold, blue } from 'https://deno.land/std@0.99.0/fmt/colors.ts';
 
 console.info = (txt: string) =>
@@ -30,6 +31,8 @@ app
   .start({ port: 8080 });
 
 app.post('/json', async (c) => {
+  await ensureDir('./storage');
+
   const body = (await c.body) as { fileName: string; file: string };
   const fileName = `${body.fileName}.json`;
   try {
@@ -42,8 +45,9 @@ app.post('/json', async (c) => {
 });
 
 app.get('/files', async (c) => {
-  const files: string[] = [];
+  await ensureDir('./storage');
 
+  const files: string[] = [];
   for await (const dirEntry of Deno.readDir('./storage')) {
     files.push(dirEntry.name.replace(/.json/, ''));
   }

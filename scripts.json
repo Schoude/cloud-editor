@@ -4,7 +4,8 @@
     "start": {
       "cmd": "deno run app.ts",
       "desc": "Run the main server.",
-      "allow": ["read", "write", "net"]
+      "allow": ["read", "write", "net"],
+      "unstable": true
     }
   }
 }
