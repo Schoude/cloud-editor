@@ -15,3 +15,7 @@ Files are in `/resources`
 Start the dev server with `npm run dev`
 
 Build for production with `npm run build`
+
+## 3) Caveats
+
+Only runs in  a newer version of Chrome, because it uses the **Native File System API**.
