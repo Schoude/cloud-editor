@@ -1,8 +1,9 @@
-@use 'resets' as *;
-@use 'scrollbar' as *;
-@use 'form' as *;
-@use 'modal' as *;
-@use 'transitions' as *;
+@forward 'button';
+@forward 'resets';
+@forward 'scrollbar';
+@forward 'form';
+@forward 'modal';
+@forward 'transitions';
 @use 'variables' as *;
 
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@300;400;700&display=swap');

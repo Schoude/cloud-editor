@@ -14,6 +14,7 @@ section.merge
       input#merge-key(type='text', v-model='fieldToMergeInto')
     ButtonFab(color='red', title='Liste leeren', @click='clearCSVUnits') 🗑️
   .units-list
+    // TODO: make into component - merge all and single merge
     .unit(v-for='unit of csvUnitsWithData', :key='unit.guid')
       | {{ unit.guid }}: {{ unit.meta.default.name }}
 </template> 

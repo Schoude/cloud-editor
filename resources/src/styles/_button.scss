@@ -1,7 +1,7 @@
 @mixin curtain($color: red, $duration: 0.25s, $from: top) {
   @content;
 
-  &:before {
+  &::before {
     content: '';
     display: block;
     position: absolute;
