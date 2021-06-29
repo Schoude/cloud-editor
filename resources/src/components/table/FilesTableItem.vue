@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useData } from '../../composables/use-data';
+import { useModalManager } from '../../composables/use-modal-manager';
 import { TheInrealCloudProperty } from '../../types/property';
 
 export default defineComponent({
@@ -24,9 +25,15 @@ export default defineComponent({
   setup: (props, { emit }) => {
     const { deleteFile, loadFileFromStorage, setCurrentFile, writeJsonFile } =
       useData();
+    const { setActiveModal } = useModalManager();
 
     async function onFileDeleteClick() {
-      await deleteFile(props.fileName);
+      // TODO: Create a deletion task
+      // open a confirmation moda
+      // accept or decline the deletion task in modal
+      // close modal
+      setActiveModal('ModalDeleteConfirmation');
+      // await deleteFile(props.fileName);
       emit('file-delete');
     }
 
