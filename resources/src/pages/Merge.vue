@@ -13,16 +13,14 @@ section.merge
       label(for='merge-key') Feld in das gemerged wird
       input#merge-key(type='text', v-model='fieldToMergeInto')
     ButtonFab(color='red', title='Liste leeren', @click='clearCSVUnits') 🗑️
-  .units-list
-    // TODO: make into component - merge all and single merge
-    .unit(v-for='unit of csvUnitsWithData', :key='unit.guid')
-      | {{ unit.guid }}: {{ unit.meta.default.name }}
+  UnitsList(:units='csvUnitsWithData')
 </template> 
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import BaseButton from '../components/buttons/BaseButton.vue';
 import ButtonFab from '../components/buttons/ButtonFab.vue';
+import UnitsList from '../components/list/UnitsList.vue';
 import { useData } from '../composables/use-data';
 import { useMerge } from '../composables/use-merge';
 import { FileData } from '../helpers/file-loader';
@@ -32,6 +30,7 @@ export default defineComponent({
   components: {
     BaseButton,
     ButtonFab,
+    UnitsList,
   },
   setup: () => {
     const fieldToMergeInto = ref('units');
