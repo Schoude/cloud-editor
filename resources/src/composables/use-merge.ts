@@ -2,8 +2,9 @@ import { FileData } from './../helpers/file-loader';
 import { loadFile } from '../helpers/file-loader';
 import Papa from 'papaparse';
 import { ref, Ref } from 'vue';
-import { TheUnitSchema } from '../types/property';
-
+import { TheInrealCloudProperty, TheUnitSchema } from '../types/property';
+import { useData } from './use-data';
+const { currentFile, currentFileName } = useData();
 const csvUnitsWithData: Ref<TheUnitSchema[]> = ref([]);
 
 export const useMerge = () => {
@@ -92,10 +93,17 @@ export const useMerge = () => {
     csvUnitsWithData.value = [];
   };
 
+  const mergeAllUnits = async () => {
+    (currentFile.value as TheInrealCloudProperty).units =
+      csvUnitsWithData.value;
+    currentFileName.value = `${currentFileName.value}_merged`;
+  };
+
   return {
     loadCSVFile,
     generateUnitsFromCSVFile,
     csvUnitsWithData,
     clearCSVUnits,
+    mergeAllUnits,
   };
 };

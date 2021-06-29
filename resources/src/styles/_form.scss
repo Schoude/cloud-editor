@@ -18,9 +18,13 @@
     transition: border 0.45s ease;
     outline: none;
 
-    &:hover,
-    &:focus {
+    &:not(input[readonly]):hover,
+    &:not(input[readonly]):focus {
       border: 1px solid rgba($color-secondary, 0.8);
     }
+  }
+
+  input[readonly] {
+    opacity: 0.5;
   }
 }

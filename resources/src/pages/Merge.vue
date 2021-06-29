@@ -11,19 +11,26 @@ section.merge
     .count Anzahl Einheiten: {{ csvUnitsWithData.length }}
     .form-field
       label(for='merge-key') Feld in das gemerged wird
-      input#merge-key(type='text', v-model='fieldToMergeInto')
+      input#merge-key(type='text', v-model='fieldToMergeInto', readonly)
     ButtonFab(color='red', title='Liste leeren', @click='clearCSVUnits') 🗑️
-  UnitsList(:units='csvUnitsWithData')
+
+  BaseButton.btn-merge-all(
+    v-if='csvUnitsWithData.length > 0',
+    @click='onMergeALlUnitsClick'
+  ) Alle Einheiten mergen
+
+  UnitsList(v-if='csvUnitsWithData.length > 0', :units='csvUnitsWithData')
 </template> 
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, Ref, ref } from 'vue';
 import BaseButton from '../components/buttons/BaseButton.vue';
 import ButtonFab from '../components/buttons/ButtonFab.vue';
 import UnitsList from '../components/list/UnitsList.vue';
 import { useData } from '../composables/use-data';
 import { useMerge } from '../composables/use-merge';
 import { FileData } from '../helpers/file-loader';
+import { TheInrealCloudProperty } from '../types/property';
 
 export default defineComponent({
   name: 'Merge',
@@ -33,17 +40,23 @@ export default defineComponent({
     UnitsList,
   },
   setup: () => {
-    const fieldToMergeInto = ref('units');
+    const fieldToMergeInto: Ref<keyof TheInrealCloudProperty> = ref('units');
     const { currentFileName } = useData();
     const {
       loadCSVFile,
       generateUnitsFromCSVFile,
       csvUnitsWithData,
       clearCSVUnits,
+      mergeAllUnits,
     } = useMerge();
 
     async function onLoadCSVClick() {
       generateUnitsFromCSVFile((await loadCSVFile()) as FileData);
+    }
+
+    async function onMergeALlUnitsClick() {
+      await mergeAllUnits();
+      clearCSVUnits();
     }
 
     return {
@@ -52,6 +65,7 @@ export default defineComponent({
       csvUnitsWithData,
       clearCSVUnits,
       fieldToMergeInto,
+      onMergeALlUnitsClick,
     };
   },
 });
@@ -77,5 +91,10 @@ export default defineComponent({
 
 .count {
   font-size: 1.25em;
+}
+
+.btn-merge-all {
+  margin-bottom: 1em;
+  width: 25em;
 }
 </style>
