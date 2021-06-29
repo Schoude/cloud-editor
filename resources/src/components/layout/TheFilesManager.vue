@@ -82,6 +82,10 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 50% 50%;
   row-gap: 2em;
+
+  .save-file__name {
+    min-width: 25em;
+  }
 }
 
 .save-file {
