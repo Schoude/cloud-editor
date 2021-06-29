@@ -1,8 +1,9 @@
 import { Component, computed, ref, Ref, shallowRef, watch } from 'vue';
 import ModalPropertyDetail from '../components/modal/ModalPropertyDetail.vue';
+import ModalDeleteConfirmation from '../components/modal/ModalDeleteConfirmation.vue';
 
 // add new modal names as union type
-type RegisteredModalName = 'ModalPropertyDetail';
+type RegisteredModalName = 'ModalPropertyDetail' | 'ModalDeleteConfirmation';
 
 interface ActiveModalData<T> {
   component: Component;
@@ -16,7 +17,8 @@ const modalRegistry = new Map()
   //   MyModal.name,
   //   MyModal
   // )
-  .set(ModalPropertyDetail.name, ModalPropertyDetail);
+  .set(ModalPropertyDetail.name, ModalPropertyDetail)
+  .set(ModalDeleteConfirmation.name, ModalDeleteConfirmation);
 
 const activeModalData: Ref<null | ActiveModalData<{}>> = ref(null);
 const showModalBackDrop = computed(

@@ -1,5 +1,5 @@
 <template lang="pug">
-.modal-property-detail(role='dialog')
+.modal-property-detail.modal-base(role='dialog')
   ModalHeader {{ title }}
 
   .modal__content
@@ -91,20 +91,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles/_variables' as *;
-
-.modal-property-detail {
-  width: 650px;
-  background-color: $color-element;
-  border-radius: 0.25em;
-  align-items: center;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-}
-
-.modal__content {
-  padding: 1em;
-}
-
 .entry {
   & ~ .entry {
     margin-top: 0.5em;
