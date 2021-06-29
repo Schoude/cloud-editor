@@ -22,13 +22,13 @@ const config: CORSConfig = {
 };
 app.use(cors(config));
 
-console.info('Server listening on http://127.0.0.1:8080');
+console.info('Server listening on http://127.0.0.1:1234');
 
 app
   .static('/', 'frontend')
   .static('/storage', 'storage')
   .file('/', 'frontend/index.html')
-  .start({ port: 8080 });
+  .start({ port: 1234 });
 
 app.post('/json', async (c) => {
   await ensureDir('./storage');

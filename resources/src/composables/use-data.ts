@@ -63,7 +63,7 @@ export const useData = () => {
 
   async function saveFile() {
     try {
-      await fetch('http://127.0.0.1:8080/json', {
+      await fetch('http://127.0.0.1:1234/json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export const useData = () => {
 
   async function deleteFile(fileName: string) {
     try {
-      await fetch(`http://127.0.0.1:8080/file/${fileName}`, {
+      await fetch(`http://127.0.0.1:1234/file/${fileName}`, {
         method: 'DELETE',
       });
     } catch (e: unknown) {
@@ -90,7 +90,7 @@ export const useData = () => {
 
   async function loadFiles() {
     try {
-      const filesList = await fetch('http://127.0.0.1:8080/files');
+      const filesList = await fetch('http://127.0.0.1:1234/files');
       existingFiles.value = await filesList.json();
     } catch (e: unknown) {
       console.log((e as Error).message);
@@ -99,7 +99,7 @@ export const useData = () => {
 
   async function loadFileFromStorage(fileName: string) {
     try {
-      const res = await fetch(`http://127.0.0.1:8080/file/${fileName}`);
+      const res = await fetch(`http://127.0.0.1:1234/file/${fileName}`);
       const data = await res.json();
       return {
         fileName: data.fileName,

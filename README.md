@@ -6,7 +6,7 @@ Start the server with `denon start`
 <br>
 Enables saving/loading files.
 <br>
-Serves the compiled frontend assets for production on `http://127.0.0.1:8080`
+Serves the compiled frontend assets for production on `http://127.0.0.1:1234`
 
 ## 2) Frontend
 
