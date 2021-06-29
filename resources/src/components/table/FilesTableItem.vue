@@ -45,6 +45,11 @@ export default defineComponent({
 
     async function onLoadFromStorageClick() {
       const res = await loadFileFromStorage(props.fileName);
+      // TODO: validate the contents of loaded file
+      // 1) check if all guids are valid
+      // 2) check if all required properties are there
+      // 3) check if the contents are there
+      // 4) show modal with accumulated errors
       setCurrentFile(
         res?.fileName as string,
         res?.file as TheInrealCloudProperty

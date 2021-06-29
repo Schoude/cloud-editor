@@ -26,6 +26,11 @@ export const useData = () => {
       })) as FileData;
 
       currentFileName.value = fileData.name;
+      // TODO: validate the contents of loaded file
+      // 1) check if all guids are valid
+      // 2) check if all required properties are there
+      // 3) check if the contents are there
+      // 4) show modal with accumulated errors
       currentFile.value = JSON.parse(fileData.contents);
     } catch (e: unknown) {
       console.log((e as Error).message);
