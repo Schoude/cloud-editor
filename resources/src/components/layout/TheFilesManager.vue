@@ -39,9 +39,14 @@ export default defineComponent({
       saveFileName,
       saveFile,
       loadFiles,
+      existingFiles,
     } = useData();
 
     async function onSaveFileClick() {
+      if (existingFiles.value.includes(saveFileName.value)) {
+        console.log('show modal that a file with the same name already exists');
+      }
+      // check if a file with this name already exists
       await saveFile();
       loadFiles();
     }

@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useData } from '../../composables/use-data';
-import { useDeletionTask } from '../../composables/use-deletion-task';
+import { useConfirmationTask } from '../../composables/use-confirmation-task';
 import { useModalManager } from '../../composables/use-modal-manager';
 import { TheInrealCloudProperty } from '../../types/property';
 
@@ -27,18 +27,20 @@ export default defineComponent({
     const { deleteFile, loadFileFromStorage, setCurrentFile, writeJsonFile } =
       useData();
     const { setActiveModal } = useModalManager();
-    const { createDeletionTask } = useDeletionTask();
+    const { createConfirmationTask } = useConfirmationTask();
 
     async function onFileDeleteClick() {
-      createDeletionTask({
+      createConfirmationTask({
         title: 'JSON-Datei löschen',
         description: `Datei <i>${props.fileName}</i> wirklich löschen?`,
-        delete: async () => {
+        buttonText: 'Löschen bestätigen',
+        type: 'deletion',
+        confirm: async () => {
           await deleteFile(props.fileName);
           emit('file-delete');
         },
       });
-      setActiveModal('ModalDeleteConfirmation');
+      setActiveModal('ModalConfirmation');
     }
 
     async function onLoadFromStorageClick() {
