@@ -1,5 +1,7 @@
 @mixin curtain($color: red, $duration: 0.25s, $from: top) {
   @content;
+  // creates a new stacking context for z-index and positioning
+  isolation: isolate;
 
   &::before {
     content: '';
