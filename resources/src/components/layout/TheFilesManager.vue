@@ -1,14 +1,15 @@
 <template lang="pug">
 .the-files-manager
   .save-file(v-if='fileLoaded')
-    .form-field
-      label(for='save-file__name') Dateiname
-      input#save-file__name.save-file__name(
-        type='text',
-        autocomplete='off',
-        v-model='saveFileName'
-      )
-    BaseButton.save-button(@click='onSaveFileClick') 💾 JSON-Datei speichern
+    form.form-json-file
+      .form-field
+        label(for='save-file__name') Dateiname
+        input#save-file__name.save-file__name(
+          type='text',
+          autocomplete='off',
+          v-model='saveFileName'
+        )
+      BaseButton.save-button(@click.prevent='onSaveFileClick') 💾 JSON-Datei speichern
   .save-file(v-else)
     span Keine Datei geladen
   Suspense
