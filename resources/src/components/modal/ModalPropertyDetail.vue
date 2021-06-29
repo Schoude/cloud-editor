@@ -10,9 +10,14 @@
       template(v-for='key of getActualKeysOfEntry.filter(e => e !== "meta")')
         .entry
           span.key {{ key }}:
-          span.value {{ entryWithData[key] }}
+          // handle array values
+          template(v-if='Array.isArray(entryWithData[key])')
+            template(v-for='aEntry of entryWithData[key]')
+              .value {{ aEntry }}
+          template(v-else)
+            span.value {{ entryWithData[key] }}
 
-      // exception no meta field
+      // exception meta field
       template(v-if='getActualKeysOfEntry.includes("meta")')
         .meta meta
         template(v-for='keyData of getMetaKeys')
