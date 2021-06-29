@@ -1,0 +1,12 @@
+@use './variables' as *;
+
+.modal-base {
+  width: 650px;
+  background-color: $color-element;
+  border-radius: 0.25em;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal__content {
+  padding: 1em;
+}
