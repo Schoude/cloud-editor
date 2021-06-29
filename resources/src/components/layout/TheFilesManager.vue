@@ -21,7 +21,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
+import { useConfirmationTask } from '../../composables/use-confirmation-task';
 import { useData } from '../../composables/use-data';
+import { useModalManager } from '../../composables/use-modal-manager';
 import BaseButton from '../buttons/BaseButton.vue';
 import TheFilesTable from './TheFilesTable.vue';
 
@@ -41,12 +43,25 @@ export default defineComponent({
       loadFiles,
       existingFiles,
     } = useData();
+    const { createConfirmationTask } = useConfirmationTask();
+    const { setActiveModal } = useModalManager();
 
     async function onSaveFileClick() {
       if (existingFiles.value.includes(saveFileName.value)) {
-        console.log('show modal that a file with the same name already exists');
+        createConfirmationTask({
+          title: 'Datei existiert bereits',
+          description: `Eine Datei mit dem Namen <i>${saveFileName.value}</i> existiert bereits.`,
+          buttonText: 'Speichern bestätigen',
+          type: 'confirmation',
+          confirm: async () => {
+            await saveFile();
+            loadFiles();
+          },
+        });
+        setActiveModal('ModalConfirmation');
+        return;
       }
-      // check if a file with this name already exists
+
       await saveFile();
       loadFiles();
     }
