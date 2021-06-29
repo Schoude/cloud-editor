@@ -1,6 +1,6 @@
 <template lang="pug">
 .units-list
-  UnitListItem(v-for='unit of units', :key='unit.guid', :unit='unit')
+  UnitListItem(v-for='unit of units', :key='unit?.guid', :unit='unit')
 </template>
 
 <script lang="ts">
@@ -15,7 +15,7 @@ export default defineComponent({
   },
   props: {
     units: {
-      type: Object as PropType<TheUnitSchema>,
+      type: Object as PropType<TheUnitSchema[]>,
       required: true,
     },
   },

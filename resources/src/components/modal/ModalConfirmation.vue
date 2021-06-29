@@ -1,9 +1,9 @@
 <template lang="pug">
-.modal-confirmation.modal-base(role='dialog', :class='[confirmationTask.type]')
+.modal-confirmation.modal-base(role='dialog', :class='[confirmationTask?.type]')
   ModalHeader {{ confirmationTask?.title }}
 
   .modal__content
-    div(v-html='confirmationTask.description')
+    div(v-html='confirmationTask?.description')
 
   .modal__actions
     BaseButton.btn-confirm(@click='onConfirmClick') {{ confirmationTask?.buttonText }}
