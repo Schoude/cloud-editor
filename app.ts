@@ -13,7 +13,11 @@ import { createFile, deleteFile, getFile, getFiles } from './handlers.ts';
 const app = new Application();
 
 const corsConfig: CORSConfig = {
-  allowOrigins: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+  allowOrigins: [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
+    'http://localhost:1234',
+  ],
   allowMethods: [HttpMethod.Get, HttpMethod.Post, HttpMethod.Delete],
   allowHeaders: [Header.ContentType],
 };
