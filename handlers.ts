@@ -1,5 +1,4 @@
-import { ensureDir } from 'https://deno.land/std@0.99.0/fs/mod.ts';
-import { HandlerFunc, Context } from 'https://deno.land/x/abc@v1.3.3/mod.ts';
+import { ensureDir, HandlerFunc, Context } from './deps.ts';
 
 export const getFiles: HandlerFunc = async (c: Context) => {
   await ensureDir('./storage');
@@ -29,8 +28,8 @@ export const createFile: HandlerFunc = async (c: Context) => {
     await Deno.writeTextFile(`storage/${fileName}`, JSON.stringify(body.file));
 
     console.info('File written to ' + `storage/${fileName}`);
-  } catch (e) {
-    c.json({ error: e.message }, 500);
+  } catch (error) {
+    c.json(error, 500);
   }
 };
 
@@ -39,7 +38,7 @@ export const deleteFile: HandlerFunc = async (c: Context) => {
   try {
     await Deno.remove(`storage/${fileName}.json`);
     c.response.status = 200;
-  } catch (_error) {
-    c.response.status = 500;
+  } catch (error) {
+    c.json(error, 500);
   }
 };
