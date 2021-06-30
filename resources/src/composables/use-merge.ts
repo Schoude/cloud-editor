@@ -94,8 +94,10 @@ export const useMerge = () => {
   };
 
   const mergeAllUnits = async () => {
-    (currentFile.value as TheInrealCloudProperty).units =
-      csvUnitsWithData.value;
+    (currentFile.value as TheInrealCloudProperty).units.push(
+      ...csvUnitsWithData.value
+    );
+
     currentFileName.value = `${currentFileName.value}_merged`;
   };
 
