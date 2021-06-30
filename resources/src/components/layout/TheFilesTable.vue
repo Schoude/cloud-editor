@@ -34,7 +34,7 @@ export default defineComponent({
 
     const filteredFiles = computed(() =>
       existingFiles.value.filter((fileName) =>
-        fileName.includes(searchTerm.value)
+        fileName.toLowerCase().includes(searchTerm.value.trim().toLowerCase())
       )
     );
 
