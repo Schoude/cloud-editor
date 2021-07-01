@@ -48,8 +48,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-content {
-  width: 500px;
-  margin-top: 1em;
-}
+  .table-content {
+    width: 500px;
+    margin-top: 1em;
+  }
 </style>

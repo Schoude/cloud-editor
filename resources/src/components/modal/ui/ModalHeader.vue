@@ -23,23 +23,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.modal-header {
-  display: flex;
-  padding-left: 1rem;
-  height: 50px;
-  align-items: center;
-  font-size: 1.25em;
+  .modal-header {
+    display: flex;
+    padding-left: 1rem;
+    height: 50px;
+    align-items: center;
+    font-size: 1.25em;
 
-  .title {
-    flex: 1;
-  }
+    .title {
+      flex: 1;
+    }
 
-  .actions {
-    align-self: stretch;
+    .actions {
+      align-self: stretch;
 
-    .btn-close {
-      height: 100%;
+      .btn-close {
+        height: 100%;
+      }
     }
   }
-}
 </style>

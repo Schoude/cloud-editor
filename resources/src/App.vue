@@ -39,27 +39,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@use './styles/_scrollbar' as *;
+  @use './styles/_scrollbar' as *;
 
-#app {
-  display: flex;
-  flex-direction: column;
-
-  .app-content {
-    flex: 1;
+  #app {
     display: flex;
-    overflow: auto;
+    flex-direction: column;
+
+    .app-content {
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
   }
-}
 
-p {
-  font-size: 1.25em;
-}
+  p {
+    font-size: 1.25em;
+  }
 
-.page {
-  flex: 1;
-  overflow: auto;
-  padding: 1em;
-  @include scrollbar();
-}
+  .page {
+    flex: 1;
+    overflow: auto;
+    padding: 1em;
+    @include scrollbar();
+  }
 </style>

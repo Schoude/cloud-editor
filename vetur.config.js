@@ -1,5 +1,9 @@
 module.exports = {
-  package: './resources/package.json',
-  tsconfig: './resources/tsconfig.json',
-  root: './resources',
-}
+  projects: [
+    './resources/src', // Shorthand for specifying only the project root location
+    {
+      package: './package.json',
+      tsconfig: './tsconfig.json',
+    },
+  ],
+};

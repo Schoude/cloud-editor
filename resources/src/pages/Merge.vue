@@ -72,29 +72,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.title {
-  margin-bottom: 1.5em;
-}
+  .title {
+    margin-bottom: 1.5em;
+  }
 
-.meta-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+  .meta-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 
-.summary {
-  display: flex;
-  align-items: center;
-  height: 80px;
-  column-gap: 1.5em;
-  margin-bottom: 1.5em;
-}
+  .summary {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    column-gap: 1.5em;
+    margin-bottom: 1.5em;
+  }
 
-.count {
-  font-size: 1.25em;
-}
+  .count {
+    font-size: 1.25em;
+  }
 
-.btn-merge-all {
-  margin-bottom: 1em;
-  width: 25em;
-}
+  .btn-merge-all {
+    margin-bottom: 1em;
+    width: 25em;
+  }
 </style>

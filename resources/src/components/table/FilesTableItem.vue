@@ -74,22 +74,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles/_variables' as *;
+  @use '../../styles/_variables' as *;
 
-.files-table-item {
-  display: flex;
-  padding: 0.75em;
-  padding-left: 0;
-  transition: background-color 0.35s ease, transform 0.5s ease,
-    opacity 0.5s ease;
-  background-color: rgba($color-primary, 0.2);
+  .files-table-item {
+    display: flex;
+    padding: 0.75em;
+    padding-left: 0;
+    transition: background-color 0.35s ease, transform 0.5s ease,
+      opacity 0.5s ease;
+    background-color: rgba($color-primary, 0.2);
 
-  &:hover {
-    background-color: rgba($color-primary, 0.4);
+    &:hover {
+      background-color: rgba($color-primary, 0.4);
+    }
   }
-}
 
-.name {
-  flex: 1;
-}
+  .name {
+    flex: 1;
+  }
 </style>

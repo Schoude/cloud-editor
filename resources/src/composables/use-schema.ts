@@ -12,8 +12,8 @@ export const useSchema = () => {
     return propertyName.endsWith('ies')
       ? propertyName.replace('ies', 'y')
       : propertyName.endsWith('s')
-      ? propertyName.slice(0, propertyName.length - 1)
-      : propertyName;
+        ? propertyName.slice(0, propertyName.length - 1)
+        : propertyName;
   }
 
   function getDescription(propertyName: string) {

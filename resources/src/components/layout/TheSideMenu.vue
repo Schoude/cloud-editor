@@ -29,15 +29,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles/_variables' as *;
+  @use '../../styles/_variables' as *;
 
-.the-side-menu {
-  width: 150px;
-  background-color: $color-element-alt;
-  padding-top: 1em;
+  .the-side-menu {
+    width: 150px;
+    background-color: $color-element-alt;
+    padding-top: 1em;
 
-  .button-navigation {
-    width: 100%;
+    .button-navigation {
+      width: 100%;
+    }
   }
-}
 </style>

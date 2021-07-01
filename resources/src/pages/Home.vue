@@ -19,9 +19,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.home {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2em;
-}
+  .home {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+  }
 </style>

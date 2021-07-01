@@ -28,30 +28,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles/_button' as *;
-@use '../../styles/_variables' as *;
+  @use '../../styles/_button' as *;
+  @use '../../styles/_variables' as *;
 
-.button-fab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid $color-primary;
-  font-size: 1.25em;
+  .button-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid $color-primary;
+    font-size: 1.25em;
 
-  @include curtain($color-primary) {
-    position: relative;
-    overflow: hidden;
-  }
-
-  &.red {
-    border: 1px solid #960018;
-    @include curtain(#960018) {
+    @include curtain($color-primary) {
       position: relative;
       overflow: hidden;
     }
+
+    &.red {
+      border: 1px solid #960018;
+      @include curtain(#960018) {
+        position: relative;
+        overflow: hidden;
+      }
+    }
   }
-}
 </style>

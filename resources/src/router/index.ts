@@ -35,8 +35,8 @@ router.beforeEach((to, from, next) => {
   to.name === ROUTE_NAMES.HOME
     ? next()
     : fileLoaded.value == false
-    ? next({ name: ROUTE_NAMES.HOME })
-    : next();
+      ? next({ name: ROUTE_NAMES.HOME })
+      : next();
 });
 
 export default router;

@@ -96,33 +96,33 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.entry {
-  & ~ .entry {
-    margin-top: 0.5em;
+  .entry {
+    & ~ .entry {
+      margin-top: 0.5em;
+    }
   }
-}
 
-.meta {
-  font-weight: 700;
-  margin-top: 1em;
-  font-style: italic;
-}
+  .meta {
+    font-weight: 700;
+    margin-top: 1em;
+    font-style: italic;
+  }
 
-.key {
-  font-weight: 700;
-  margin-right: 1em;
-}
+  .key {
+    font-weight: 700;
+    margin-right: 1em;
+  }
 
-.key__sub,
-.key__sub-2 .key {
-  font-weight: 700;
-}
+  .key__sub,
+  .key__sub-2 .key {
+    font-weight: 700;
+  }
 
-.key__sub {
-  margin-left: 0.5em;
-}
+  .key__sub {
+    margin-left: 0.5em;
+  }
 
-.key__sub-2 {
-  margin-left: 1em;
-}
+  .key__sub-2 {
+    margin-left: 1em;
+  }
 </style>
