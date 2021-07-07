@@ -6,7 +6,8 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "test:unit": "jest",
-    "test:unit-watch": "jest --watch"
+    "test:unit-watch": "jest --watch",
+    "build-test": "jest && vue-tsc --noEmit && vite build"
   },
   "dependencies": {
     "papaparse": "^5.3.1",
@@ -26,6 +27,7 @@
     "typescript": "^4.3.2",
     "vite": "^2.3.8",
     "vue-jest": "^5.0.0-alpha.10",
+    "vue-router-mock": "^0.0.3",
     "vue-tsc": "^0.0.24"
   }
 }
