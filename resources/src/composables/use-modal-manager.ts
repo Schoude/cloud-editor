@@ -26,15 +26,15 @@ const showModalBackDrop = computed(
 );
 const showModal = ref(false);
 
-export const useModalManager = () => {
+export function useModalManager() {
   /**
    * Main function to DISPLAY the modal.
    */
-  const setActiveModal = <T>(
+  function setActiveModal<T>(
     componentName: RegisteredModalName | null,
     props?: T,
     persistent: boolean = true
-  ) => {
+  ) {
     const modalToRender = modalRegistry.get(componentName);
     activeModalData.value = {
       component: shallowRef(modalToRender),
@@ -50,7 +50,7 @@ export const useModalManager = () => {
 
   // Helper functions called by the modal transition.
   const displayModal = () => (showModal.value = true);
-  const hideModalBackdrop = () => {
+  function hideModalBackdrop() {
     setActiveModal(null);
   };
 

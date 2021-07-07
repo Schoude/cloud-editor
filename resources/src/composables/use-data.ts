@@ -12,7 +12,7 @@ watch(
   (newVal) => (saveFileName.value = newVal.replace(/\.json/, ''))
 );
 
-export const useData = () => {
+export function useData() {
   async function openJsonFile() {
     try {
       const fileData = (await loadFile({

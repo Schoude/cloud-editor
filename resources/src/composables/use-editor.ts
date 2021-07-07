@@ -8,7 +8,7 @@ const { currentFile } = useData();
 const getTabs = computed(() => Object.keys(schema.value?.properties as {}));
 const selectedTab: Ref<keyof TheInrealCloudProperty | string> = ref('');
 
-export const useEditor = () => {
+export function useEditor() {
   function setSelectedTab(tabName: keyof TheInrealCloudProperty | string) {
     selectedTab.value = tabName;
   }

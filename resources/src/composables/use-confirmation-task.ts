@@ -10,8 +10,8 @@ interface ConfirmationTask {
 
 const confirmationTask: Ref<ConfirmationTask | null> = ref(null);
 
-export const useConfirmationTask = () => {
-  const createConfirmationTask = (newConfirmationTask: ConfirmationTask) => {
+export function useConfirmationTask() {
+  function createConfirmationTask(newConfirmationTask: ConfirmationTask) {
     confirmationTask.value = newConfirmationTask;
   };
 

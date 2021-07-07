@@ -7,8 +7,8 @@ import { useData } from './use-data';
 const { currentFile, currentFileName } = useData();
 const csvUnitsWithData: Ref<TheUnitSchema[]> = ref([]);
 
-export const useMerge = () => {
-  const loadCSVFile = async () => {
+export function useMerge() {
+  async function loadCSVFile() {
     try {
       const file = await loadFile({
         types: [
@@ -27,7 +27,7 @@ export const useMerge = () => {
     }
   };
 
-  const generateUnitsFromCSVFile = (csvFile: FileData) => {
+  function generateUnitsFromCSVFile(csvFile: FileData) {
     if (csvUnitsWithData.value.length > 0) {
       csvUnitsWithData.value = [];
     }
@@ -89,11 +89,11 @@ export const useMerge = () => {
     });
   };
 
-  const clearCSVUnits = () => {
+  function clearCSVUnits() {
     csvUnitsWithData.value = [];
   };
 
-  const mergeAllUnits = async () => {
+  function mergeAllUnits() {
     (currentFile.value as TheInrealCloudProperty).units.push(
       ...csvUnitsWithData.value
     );
