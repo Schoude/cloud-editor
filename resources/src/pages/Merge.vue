@@ -54,8 +54,8 @@ export default defineComponent({
       generateUnitsFromCSVFile((await loadCSVFile()) as FileData);
     }
 
-    async function onMergeALlUnitsClick() {
-      await mergeAllUnits();
+    function onMergeALlUnitsClick() {
+      mergeAllUnits();
       clearCSVUnits();
     }
 
