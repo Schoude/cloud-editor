@@ -18,4 +18,3 @@ export {
 export { cors } from 'https://deno.land/x/abc@v1.3.3/middleware/cors.ts';
 
 export type { CORSConfig } from 'https://deno.land/x/abc@v1.3.3/middleware/cors.ts';
-export type { HandlerFunc } from 'https://deno.land/x/abc@v1.3.3/mod.ts';

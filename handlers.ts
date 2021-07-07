@@ -1,6 +1,6 @@
-import { ensureDir, HandlerFunc, Context } from './deps.ts';
+import { ensureDir, Context } from './deps.ts';
 
-export const getFiles: HandlerFunc = async (c: Context) => {
+export async function getFiles(c: Context) {
   await ensureDir('./storage');
 
   const files: string[] = [];
@@ -9,17 +9,17 @@ export const getFiles: HandlerFunc = async (c: Context) => {
   }
 
   c.json(files, 200);
-};
+}
 
-export const getFile: HandlerFunc = async (c: Context) => {
+export async function getFile(c: Context) {
   const fileName = c.params.fileName.replaceAll('%20', ' ');
   const text = await Deno.readTextFile(`storage/${fileName}.json`);
   const payload = { fileName, contents: text };
 
   c.json(payload, 200);
-};
+}
 
-export const createFile: HandlerFunc = async (c: Context) => {
+export async function createFile(c: Context) {
   await ensureDir('./storage');
 
   const body = (await c.body) as { fileName: string; file: string };
@@ -31,9 +31,9 @@ export const createFile: HandlerFunc = async (c: Context) => {
   } catch (error) {
     c.json(error, 500);
   }
-};
+}
 
-export const deleteFile: HandlerFunc = async (c: Context) => {
+export async function deleteFile(c: Context) {
   const fileName = c.params.fileName.replaceAll('%20', ' ');
   try {
     await Deno.remove(`storage/${fileName}.json`);
@@ -41,4 +41,4 @@ export const deleteFile: HandlerFunc = async (c: Context) => {
   } catch (error) {
     c.json(error, 500);
   }
-};
+}
