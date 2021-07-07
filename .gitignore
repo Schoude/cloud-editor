@@ -3,3 +3,4 @@ frontend
 storage
 **/node_modules/**
 .env
+resources/coverage
