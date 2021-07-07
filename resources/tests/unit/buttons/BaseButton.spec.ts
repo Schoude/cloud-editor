@@ -10,4 +10,9 @@ describe('BaseButton', () => {
     });
     expect(wrapper.html()).toContain('Main Content');
   });
+
+  it("has role 'button' by default", () => {
+    const wrapper = mount(BaseButton);
+    expect(wrapper.attributes().role).toBe('button');
+  });
 });
