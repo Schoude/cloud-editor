@@ -39,20 +39,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '../../styles/_variables' as *;
+@use '../../styles/_variables' as *;
 
-  .button-navigation {
-    font-size: 1.25em;
-    transition: background-color 0.3s ease;
-    padding: 0.25em 0;
+.button-navigation {
+  font-size: 1.25em;
+  transition: background-color 0.3s ease;
+  padding: 0.25em 0;
 
-    &.active {
-      background-color: rgba($color-primary, 0.4);
-    }
-
-    &:hover,
-    &:focus {
-      background-color: rgba($color-primary, 0.2);
-    }
+  &.active {
+    background-color: rgba($color-primary, 0.4);
   }
+
+  &:hover,
+  &:focus {
+    background-color: rgba($color-primary, 0.2);
+  }
+}
 </style>

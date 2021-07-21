@@ -116,34 +116,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .detail-actions {
-    padding: 1em 0;
+.detail-actions {
+  padding: 1em 0;
 
-    .heading {
-      font-size: 1.25em;
-      margin-bottom: 0.5em;
-    }
-
-    .infos {
-      display: flex;
-      align-items: center;
-      column-gap: 1em;
-      min-height: 40px;
-
-      .count {
-        min-width: 100px;
-      }
-    }
-  }
-
-  .fallback-text {
-    text-align: center;
+  .heading {
     font-size: 1.25em;
+    margin-bottom: 0.5em;
   }
 
-  .entry-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1em;
+  .infos {
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+    min-height: 40px;
+
+    .count {
+      min-width: 100px;
+    }
   }
+}
+
+.fallback-text {
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.entry-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+}
 </style>

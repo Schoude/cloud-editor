@@ -30,22 +30,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '../../styles/_variables' as *;
+@use '../../styles/_variables' as *;
 
-  .the-header {
-    padding: 0.5em 2em;
-    background-color: $color-element;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    // column-gap: 3em;
-  }
+.the-header {
+  padding: 0.5em 2em;
+  background-color: $color-element;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // column-gap: 3em;
+}
 
-  h1 {
-    font-size: 1.25em;
-  }
+h1 {
+  font-size: 1.25em;
+}
 
-  .current-file__name {
-    font-size: 14px;
-  }
+.current-file__name {
+  font-size: 14px;
+}
 </style>

@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .loaded-file__name {
-    margin-left: 1em;
-  }
+.loaded-file__name {
+  margin-left: 1em;
+}
 </style>

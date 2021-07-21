@@ -33,20 +33,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '../../styles/_variables' as *;
+@use '../../styles/_variables' as *;
 
-  .tab-header-item {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    padding: 0 0.5em;
-    background-color: rgba($color-primary, 0.4);
-    transition: background-color 0.4s ease;
-    cursor: pointer;
+.tab-header-item {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 0.5em;
+  background-color: rgba($color-primary, 0.4);
+  transition: background-color 0.4s ease;
+  cursor: pointer;
 
-    &:hover,
-    &.selected {
-      background-color: rgba($color-primary, 0.8);
-    }
+  &:hover,
+  &.selected {
+    background-color: rgba($color-primary, 0.8);
   }
+}
 </style>

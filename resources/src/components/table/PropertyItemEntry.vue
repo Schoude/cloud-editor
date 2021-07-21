@@ -49,34 +49,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '../../styles/_variables' as *;
+@use '../../styles/_variables' as *;
 
-  .property-item-entry {
-    border-radius: 0.25em;
-    padding: 0.25em 0.5em;
-    background-color: rgba($color-secondary, 0.4);
-    transition: background-color 0.4s ease;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+.property-item-entry {
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  background-color: rgba($color-secondary, 0.4);
+  transition: background-color 0.4s ease;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 
-    transition: background-color 0.35s ease, transform 0.5s ease,
-      opacity 0.5s ease;
+  transition: background-color 0.35s ease, transform 0.5s ease,
+    opacity 0.5s ease;
 
-    .text-content {
-      flex: 1;
-    }
+  .text-content {
+    flex: 1;
+  }
 
-    .actions {
-      align-self: stretch;
+  .actions {
+    align-self: stretch;
 
-      button {
-        height: 100%;
-      }
-    }
-
-    &:hover {
-      background-color: rgba($color-secondary, 0.8);
+    button {
+      height: 100%;
     }
   }
+
+  &:hover {
+    background-color: rgba($color-secondary, 0.8);
+  }
+}
 </style>

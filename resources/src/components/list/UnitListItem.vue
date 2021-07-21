@@ -27,29 +27,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '../../styles/_variables' as *;
+@use '../../styles/_variables' as *;
 
-  .unit-list-item {
-    padding: 0.25em 0.5em;
-    background-color: $color-element-alt;
-    width: 25em;
-    border-radius: 0.25em;
-    transition: background-color 0.35s ease;
+.unit-list-item {
+  padding: 0.25em 0.5em;
+  background-color: $color-element-alt;
+  width: 25em;
+  border-radius: 0.25em;
+  transition: background-color 0.35s ease;
+
+  &:hover {
+    background-color: lighten($color-element-alt, 10);
+  }
+
+  & ~ & {
+    margin-top: 0.5em;
+  }
+
+  &.ref-unit {
+    background-color: rgba($color-secondary, 0.5);
 
     &:hover {
-      background-color: lighten($color-element-alt, 10);
-    }
-
-    & ~ & {
-      margin-top: 0.5em;
-    }
-
-    &.ref-unit {
-      background-color: rgba($color-secondary, 0.5);
-
-      &:hover {
-        background-color: rgba($color-secondary, 0.8);
-      }
+      background-color: rgba($color-secondary, 0.8);
     }
   }
+}
 </style>

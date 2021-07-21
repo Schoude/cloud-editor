@@ -40,15 +40,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .btn-confirm {
-    width: 100%;
-  }
+.btn-confirm {
+  width: 100%;
+}
 
-  .deletion {
-    .btn-confirm {
-      &::before {
-        background-color: #960018;
-      }
+.deletion {
+  .btn-confirm {
+    &::before {
+      background-color: #960018;
     }
   }
+}
 </style>
