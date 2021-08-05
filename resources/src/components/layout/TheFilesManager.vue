@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
-import { useConfirmationTask } from '../../composables/use-confirmation-task';
+import { useConfirmationTask } from '../../stores/confirmation-task';
 import { useData } from '../../composables/use-data';
 import { useModalManager } from '../../composables/use-modal-manager';
 import BaseButton from '../buttons/BaseButton.vue';

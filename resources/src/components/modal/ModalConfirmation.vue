@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useConfirmationTask } from '../../composables/use-confirmation-task';
+import { computed, defineComponent } from 'vue';
+import { useConfirmationTask } from '../../stores/confirmation-task';
 import { useModalManager } from '../../composables/use-modal-manager';
 import BaseButton from '../buttons/BaseButton.vue';
 import ModalHeader from './ui/ModalHeader.vue';
@@ -23,17 +23,18 @@ export default defineComponent({
     BaseButton,
   },
   setup: () => {
-    const { confirmationTask } = useConfirmationTask();
+    const confirmationTaskStore = useConfirmationTask();
     const { hideModal } = useModalManager();
 
     async function onConfirmClick() {
-      await confirmationTask.value?.confirm();
+      await confirmationTaskStore.confirmationTask?.confirm();
+      confirmationTaskStore.clearConfirmationTask();
       hideModal();
     }
 
     return {
       onConfirmClick,
-      confirmationTask,
+      confirmationTask: computed(() => confirmationTaskStore.confirmationTask),
     };
   },
 });

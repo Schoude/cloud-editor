@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useData } from '../../composables/use-data';
-import { useConfirmationTask } from '../../composables/use-confirmation-task';
+import { useConfirmationTask } from '../../stores/confirmation-task';
 import { useModalManager } from '../../composables/use-modal-manager';
 import { TheInrealCloudProperty } from '../../types/property';
 
