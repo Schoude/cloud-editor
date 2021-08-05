@@ -2,8 +2,8 @@
 // std library
 // *****************
 
-export { green, bold, blue } from 'https://deno.land/std@0.99.0/fmt/colors.ts';
-export { ensureDir } from 'https://deno.land/std@0.99.0/fs/mod.ts';
+export { green, bold, blue } from 'https://deno.land/std@0.103.0/fmt/colors.ts';
+export { ensureDir } from 'https://deno.land/std@0.103.0/fs/mod.ts';
 
 // *****************
 // 3rd party dependencies
