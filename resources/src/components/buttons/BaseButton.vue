@@ -1,14 +1,14 @@
 <template lang="pug">
-button.base-button(role='button')
+button.base-button(role="button")
   span
     slot
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'BaseButton',
+  name: "BaseButton",
 });
 </script>
 

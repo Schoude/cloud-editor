@@ -16,13 +16,13 @@ import { TheInrealCloudProperty } from '../../types/property';
 
 export default defineComponent({
   name: 'FilesTableItem',
-  emits: ['file-delete'],
   props: {
     fileName: {
       type: String,
       required: true,
     },
   },
+  emits: ['file-delete'],
   setup: (props, { emit }) => {
     const { deleteFile, loadFileFromStorage, setCurrentFile, writeJsonFile } =
       useData();

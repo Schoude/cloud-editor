@@ -1,19 +1,19 @@
 <template lang="pug">
 button.button-navigation(
-  @click='onNavigateCLick',
-  role='button',
-  :class='{ active: isActiveRoute }'
+  @click="onNavigateCLick",
+  role="button",
+  :class="{ active: isActiveRoute }"
 )
   slot
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
-import { useRouter } from 'vue-router';
-import { ROUTE_NAMES } from '../../router/routing-info';
+import { computed, defineComponent, PropType } from "vue";
+import { useRouter } from "vue-router";
+import { ROUTE_NAMES } from "../../router/routing-info";
 
 export default defineComponent({
-  name: 'ButtonNavigation',
+  name: "ButtonNavigation",
   props: {
     to: {
       type: String as PropType<ROUTE_NAMES>,
@@ -23,7 +23,7 @@ export default defineComponent({
   setup: (props) => {
     const router = useRouter();
 
-    async function onNavigateCLick() {
+    async function onNavigateCLick () {
       await router.push({ name: props.to });
     }
     const isActiveRoute = computed(

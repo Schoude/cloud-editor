@@ -8,16 +8,16 @@ const { currentFile } = useData();
 const getTabs = computed(() => Object.keys(schema.value?.properties as {}));
 const selectedTab: Ref<keyof TheInrealCloudProperty | string> = ref('');
 
-export function useEditor() {
-  function setSelectedTab(tabName: keyof TheInrealCloudProperty | string) {
+export function useEditor () {
+  function setSelectedTab (tabName: keyof TheInrealCloudProperty | string) {
     selectedTab.value = tabName;
   }
 
-  function isTabSelected(tab: keyof TheInrealCloudProperty | string) {
+  function isTabSelected (tab: keyof TheInrealCloudProperty | string) {
     return selectedTab.value === tab;
   }
 
-  function getPropertyData<T, K extends keyof T>(property: T, key: K): T[K] {
+  function getPropertyData<T, K extends keyof T> (property: T, key: K): T[K] {
     return property[key]; // property[key] is of type T[K]
   }
 
@@ -35,4 +35,4 @@ export function useEditor() {
     selectedTab,
     isTabSelected,
   };
-};
+}

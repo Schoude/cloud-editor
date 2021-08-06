@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent } from 'vue';
 import { useConfirmationTask } from '../../stores/confirmation-task';
 import { useData } from '../../composables/use-data';
 import { useModalManager } from '../../composables/use-modal-manager';

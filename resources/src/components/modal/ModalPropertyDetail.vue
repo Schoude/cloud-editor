@@ -45,6 +45,7 @@ export default defineComponent({
   props: {
     title: {
       type: String,
+      default: '',
     },
     entryBaseInfo: {
       type: Object as PropType<IPropertyItemEntry>,

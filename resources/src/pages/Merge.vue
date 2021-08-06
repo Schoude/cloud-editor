@@ -50,11 +50,11 @@ export default defineComponent({
       mergeAllUnits,
     } = useMerge();
 
-    async function onLoadCSVClick() {
+    async function onLoadCSVClick () {
       generateUnitsFromCSVFile((await loadCSVFile()) as FileData);
     }
 
-    function onMergeALlUnitsClick() {
+    function onMergeALlUnitsClick () {
       mergeAllUnits();
       clearCSVUnits();
     }

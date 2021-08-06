@@ -2,13 +2,13 @@ import { ref, Ref } from 'vue';
 import { TheInrealCloudPropertySchema } from '../types/property-schema';
 const schema: Ref<TheInrealCloudPropertySchema | null> = ref(null);
 
-export function useSchema() {
-  async function loadSchema() {
+export function useSchema () {
+  async function loadSchema () {
     const res = await fetch('../../schemas/cloud-property-schema.json');
     schema.value = await res.json();
   }
 
-  function makePropertyNameSingular(propertyName: string): string {
+  function makePropertyNameSingular (propertyName: string): string {
     return propertyName.endsWith('ies')
       ? propertyName.replace('ies', 'y')
       : propertyName.endsWith('s')
@@ -16,17 +16,17 @@ export function useSchema() {
         : propertyName;
   }
 
-  function getDescription(propertyName: string) {
+  function getDescription (propertyName: string) {
     return schema.value?.definitions[makePropertyNameSingular(propertyName)]
       ?.description;
   }
 
-  function getPropertyType(propertyName: string) {
+  function getPropertyType (propertyName: string) {
     return schema.value?.properties[propertyName].type;
   }
 
   // Gets all the primary keys of a property based on the schema.
-  function getKeysOfProperty(propertyName: string) {
+  function getKeysOfProperty (propertyName: string) {
     return Object.keys(
       schema.value?.definitions[makePropertyNameSingular(propertyName)]
         .properties as {}
@@ -41,4 +41,4 @@ export function useSchema() {
     getPropertyType,
     getKeysOfProperty,
   };
-};
+}

@@ -18,10 +18,10 @@ export const useConfirmationTask = defineStore({
     confirmationTask: null,
   }),
   actions: {
-    createConfirmationTask(newConfirmationTask: ConfirmationTask) {
+    createConfirmationTask (newConfirmationTask: ConfirmationTask) {
       this.confirmationTask = newConfirmationTask;
     },
-    clearConfirmationTask() {
+    clearConfirmationTask () {
       this.confirmationTask = null;
     },
   },
